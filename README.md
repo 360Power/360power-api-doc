@@ -21,7 +21,8 @@ BIGER 的REST API URL为 https://pub-api.biger.in , 在使用REST API 操作订�
 ### 请求头
 
 非行情API均需以下三个请求头
-名字  |  值
+
+`名字` | `值`
 ----------------- | -----------------------------------------
 UCEX-ACCESS-TOKEN | 申请后获取的Access Token
 UCEX-REQUEST-EXPIRY | 此请求的过期时间，Unix epoch millisecond 
@@ -35,19 +36,21 @@ UCEX-REQUEST-HASH | 由请求参数和私钥计算出来的签名
 * 请求体
 
 `示例`
-```javascript
+```
 { 
 GET /exchange/someEndpoint?someKey=someValue&anotherKey=anotherValue
 HOST:xxxx
 UCEX-REQUEST-EXPIRY: 999999999999999
 UCEX-ACCESS-TOKEN: myAccessToken
 UCEX-REQUEST-HASH: c8owjqPSnY4mgFK8IHTk+1S+zhaEaAdoS6tJvr+o5FJFLymMyedOC6xJL9vCmVHALgXm+1mwF+0z1ZHVyJDKrdptZIfXis1tswBtt0v4k69ADYBlZkpLAhCpf0s55OQ18BbhGsrWpjm2kLtPEsPY3hvsh5nqWQQfJRAMzWFmg/8hnNa3MvWJLpZexFOYRLzmTdqthhKlw8pOvuE4pURbe27OLS4lINwY+0ck1DGINRE4/UtH+kYK3AAQq8CE/mSnWVNrIBFpYAe0frEZDluYppnuVXs3IGIQelR3RPqyYY5bfdccHVU8yBBaACRWZMTnvbdQW3TOSV/ccojaHEHBJA==
+}
 ```
 
 UCEX-REQUEST-HASH 计算公式如下: 
-```javascript
-{ 
+```
+{
 Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&anotherKey=anotherValueGET999999999999999”)))
+}
 ```
 
 ## API列表
@@ -56,7 +59,7 @@ Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&an
 路径：/exchange/accounts/list/accounts
 方法: GET
 示例：
-```javascript
+```
 路径	/exchange/accounts/list/accounts
 返回	{
 	"result"		: 	"Success",
@@ -85,7 +88,7 @@ Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&an
 路径	/exchange/orders/get/43960eab-d040-4eca-a4cd-bb20473e9960
 返回	
 
-```javascript
+```
 {
 "result":		"Success",
 	"code":		200,
@@ -137,7 +140,8 @@ Price | 单价 | String
 路径：	/exchange/orders/current?symbol={ symbol }&side={ side }&offset={ offset=}&limit={ limit }
 方法：	GET
 请求参数
-参数名 | 必须 | 默认 | 描述 | 取值
+
+`参数名` | `必须` | `默认` | `描述` | `取值`
 -------| ----- | ------ | ------- | -------------
 symbol | 是 | NA | 币对 | 参考 Appendix A
 side | 是 | NA | 买卖 | BUY, SELL
@@ -148,7 +152,7 @@ limit | 否 | 20 | 获取数量 | 最大100
 路径	/exchange/orders/current?symbol=LTCUSDT&side=BUY&offset=0&limit=50
 返回	
 
-```javascript
+```
 {
 "result"	:	"Success",
 "code"	: 	200,
@@ -186,7 +190,7 @@ orderType | 是 |  | 订单类型 | LIMIT
 路径	/exchange/orders/create
 请求体	
 
-```javascript
+```
 {
 	"symbol" 	:  "BCHUSDT",
 	"side"   		:  "BUY",
@@ -198,7 +202,7 @@ orderType | 是 |  | 订单类型 | LIMIT
 
 返回	
 
-```javascript
+```
 {
 	"result":	"Success",
 	"code":	200,
@@ -231,7 +235,7 @@ orderType | 是 |  | 订单类型 | LIMIT
 路径	/exchange/orders/cancel/725c0119-114c-471c-a2c5-d5c51d0210dd
 返回	
 
-```javascript
+```
 {
 	"result"		: "Success",
 	"code"   	: 200,
@@ -264,7 +268,7 @@ Or in cases of error	{
 客户端需定时向系统发送心跳请求以确认网络和系统状态正常。正常情况下，系统会立即回复Pong消息。系统超出30秒没有收到客户端的心跳请求，将关闭客户端网络链接。
 
 语法
-```javascript
+```
 {
 "method"	: "server.ping",
 "params"	: [],
@@ -274,7 +278,7 @@ Or in cases of error	{
 ```
 
 ### 示例
-```javascript
+```
 请求: {"method": "server.ping", "params": [], "id": 1516681178}
 返回: {"result": "pong", "error": null, "id": 1516681178}
 ```
@@ -283,7 +287,7 @@ Or in cases of error	{
 获取当前系统时间，回复时间从Epoch开始计算起，单位为秒。本文以下所有涉及时间的参数以及回复内容均为Epoch时间。建议客户端用此时间作为与系统交互的时间基准。
 
 语法
-```javascript
+```
 {
   "method"	: "server.time",
   "params"	: [],
@@ -293,7 +297,7 @@ Or in cases of error	{
 
 示例
 
-```javascript
+```
 请求: {"method": "server.time", "params": [], "id": 1516681178}
 返回: {"result": 1520437025, "error": null, "id": 1516681178}
 ```
@@ -306,7 +310,7 @@ K线间隔参数可设置为以下之一：60（1分钟），300（5分钟），
 K线查询数量最多可以同时请求2500条，如果超出范围系统将返回参数错误。
 
 语法
-```javascript
+```
 {
   "method"	: "kline.query",
   "params"	: [<market>, <start_time>, <end_time>, <interval>],
@@ -322,7 +326,7 @@ end_time | Integer | 结束时间
 Interval | Integer | K线间隔
 
 回复语法:
-```javascript
+```
 "result": [
     [
         1492358400, 时间
@@ -339,7 +343,7 @@ Interval | Integer | K线间隔
 ```
 
 示例
-```javascript
+```
 > {"method": "kline.query", "params": ["BTCBCH", 1520432255, 1520433255, 900], "id": 1516681178}
 < {
 "result": 
@@ -373,7 +377,7 @@ Interval | Integer | K线间隔
 ####  订阅K线
 订阅成功之后，系统在发现数据变化时会及时推送最新的一到两根K线。
 语法
-```javascript
+```
 {
   "method"	: "kline.subscribe",
   "params"	: [<market>, <interval>],
@@ -387,7 +391,7 @@ market | String | 交易品种
 interval | Integer | K线间隔
 
 示例
-```javascript
+```
 > {"method": "kline.subscribe", "params": ["BTCUSDT", 900], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 < {"method": "kline.update", "id": null, "params": [[1520436600, "8040", "8040", "8040", "8040", "9", "72360", "BTCUSDT"]]}
@@ -396,7 +400,7 @@ interval | Integer | K线间隔
 
 ####  取消K线订阅
 语法
-```javascript
+```
 {
   "method"	: "kline.unsubscribe",
   "params"	: [<market>],
@@ -409,7 +413,7 @@ interval | Integer | K线间隔
 market | String | 交易品种。若参数为空，即取消所有K线订阅。
 
 示例
-```javascript
+```
 > {"method": "kline.unsubscribe", "params": [], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 ```
@@ -417,7 +421,7 @@ market | String | 交易品种。若参数为空，即取消所有K线订阅。
 ### 最新报价接口
 #### 查询最新报价
 语法
-```javascript
+```
 {
   "method"	: "price.query",
   "params"	: [<market>],
@@ -430,7 +434,7 @@ market | String | 交易品种。若参数为空，即取消所有K线订阅。
 market | String | 交易品种
 
 示例
-```javascript
+```
 > {"method": "price.query", "params": ["BTCUSDT"], "id": 1516681178}
 < {
     "result"	: "8074.00000000",
@@ -443,7 +447,7 @@ market | String | 交易品种
 订阅成功之后，系统在发现数据变化时会及时推送最新报价。
 
 语法
-```javascript
+```
 {
   "method"	: "price.subscribe",
   "params"	: [<market>],
@@ -456,7 +460,7 @@ market | String | 交易品种
 market| String | 交易品种
 
 示例
-```javascript
+```
 > {"method": "price.subscribe", "params": ["BTCUSDT"], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 < {"method": "price.update", "id": null, "params": ["BTCUSDT", "8050"]}
@@ -464,7 +468,7 @@ market| String | 交易品种
 
 #### 取消最新报价订阅
 语法
-```javascript
+```
 {
   "method"	: "price.unsubscribe",
   "params"	: [<market>],
@@ -477,7 +481,7 @@ market| String | 交易品种
 market | String | 交易品种。若参数为空，即取消所有报价订阅。
 
 示例
-```javascript
+```
 > {"method": "price.unsubscribe", "params": [], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 ```
@@ -487,7 +491,7 @@ market | String | 交易品种。若参数为空，即取消所有报价订阅�
 
 支持查询最多100条历史成交数据查询。
 语法
-```javascript
+```
 {
   "method"	: "deals.query",
   "params"	: [“<market>”, “<limit>”, “<last_id>”],
@@ -504,7 +508,7 @@ last_id | String | 上次查询返回的最新成交ID
 
 示例
 
-```javascript
+```
 > {"method": "deals.query", "params": ["BTCUSDT", 3, 0], "id": 1516681178}
 < {
     "result": [
@@ -539,7 +543,7 @@ last_id | String | 上次查询返回的最新成交ID
 订阅成功之后，系统在发现数据变化时会及时推送成交数据。
 
 语法
-```javascript
+```
 {
 "method"	: "deals.subscribe",
 "params"	: [“<market>”],
@@ -553,7 +557,7 @@ market | String  | 交易品种
 
 示例
 
-```javascript
+```
 > {"method": "deals.subscribe", "params": ["BTCUSDT"], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 < {"method": "deals.update", "id": null, "params": ["BTCUSDT", [{"price": "8044", "type": "buy", "time": 1520438400.361028, "amount": "2", "id": 1762}, {"price": "8078", "type": "buy", "time": 1520438300.341769, "amount": "9", "id": 1761}, {"price": "8076", "type": "buy", "time": 1520438200.324909, "amount": "10", "id": 1760}, {"price": "8056", "type": "buy", "time": 1520438100.3066709, "amount": "3", "id": 1759}, {"price": "8007", "type": "buy", "time": 1520438000.2892129, "amount": "9", "id": 1758}, {"price": "8050", "type": "buy", "time": 1520437900.2736571, "amount": "6", "id": 1757}, {"price": "8074", "type": "buy", "time": 1520437800.257802, "amount": "1", "id": 1756}, {"price": "8014", "type": "buy", "time": 1520437700.239372, "amount": "4", "id": 1755}, {"price": "8054", "type": "buy", "time": 1520437600.223423, "amount": "9", "id": 1754}, {"price": "8049", "type": "buy", "time": 1520437500.2082629, "amount": "8", "id": 1753}, {"price": "8002", "type": "buy", "time": 1520437400.1939909, "amount": "2", "id": 1752}, {"price": "8000", "type": "buy", "time": 1520437300.1761429, "amount": "5", "id": 1751}, {"price": "8002", "type": "buy", "time": 1520437200.1584849, "amount": "10", "id": 1750}, {"price": "8065", "type": "buy", "time": 1520437100.142282, "amount": "5", "id": 1749}, {"price": "8099", "type": "buy", "time": 1520437000.1258199, "amount": "5", "id": 1748}, {"price": "8009", "type": "buy", "time": 1520436900.1072299, "amount": "6", "id": 1747}, {"price": "8066", "type": "buy", "time": 1520436800.0908389, "amount": "10", "id": 1746},
@@ -563,7 +567,7 @@ market | String  | 交易品种
 
 #### 取消逐笔成交数据订阅
 语法
-```javascript
+```
 {
   "method"	: "deals.unsubscribe",
   "params"	: [<market>],
@@ -577,7 +581,7 @@ market	String	交易品种。若参数为空，即取消所有成交订阅。
 
 
 示例
-```javascript
+```
 > {"method": "deals.unsubscribe", "params": [], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 
@@ -586,7 +590,7 @@ market	String	交易品种。若参数为空，即取消所有成交订阅。
 ### 市场深度数据接口
 #### 查询最新市场深度
 语法
-```javascript
+```
 {
   "method"	: "depth.query",
   "params"	: [“<market>”, <limit>, <interval>],
@@ -602,7 +606,7 @@ interval | String | 盘口报价精度。“0”为最大精度。可选精度�
 
 
 示例
-```javascript
+```
 > {"method": "depth.query", "params": ["BTCUSDT", 10, "0"], "id": 1516681178}
 < {
     "error"	: null,
@@ -659,7 +663,7 @@ interval | String | 盘口报价精度。“0”为最大精度。可选精度�
 订阅成功之后，系统在发现数据变化时会及时推送深度数据。深度数据更新中的布尔变量为true时，即为全推数据，若是false，即为变化推送。一般情况下，系统只推送深度变化数据，即深度数据的增加和修改，减少（当数量为0时即为删除该档数据）。系统在每超过一分钟之后，有一次全推的数据。
 
 语法
-```javascript
+```
 {
   "method"	: "depth.subscribe",
   "params"	: [“<market>”, <limit>, <interval> ],
@@ -675,7 +679,7 @@ interval | String | 盘口报价精度。“0”为最大精度。可选精度�
 
 
 示例
-```javascript
+```
 > {"method": "depth.subscribe", "params": ["BTCUSDT", 10, "0"], "id": 1516681178}
 < {"error": null, "result": {"status": "success"}, "id": 1516681178}
 < {"method": "depth.update", "params": [true, {"asks": [], "bids": []}, "BTCUSDT"], "id": null}
@@ -683,7 +687,7 @@ interval | String | 盘口报价精度。“0”为最大精度。可选精度�
 
 #### 取消市场深度订阅
 语法
-```javascript
+```
 {
 "method"	: "depth.unsubscribe",
 "params"	: [],
@@ -698,7 +702,7 @@ market |	String | 交易品种。若参数为空，即取消所有深度订阅�
 
 
 示例
-```javascript
+```
 > {"method": "depth.unsubscribe", "params": [], "id": 1516681178}
 < {"error": null, "result": {"status": "success"}, "id": 1516681178}
 ```
@@ -707,7 +711,7 @@ market |	String | 交易品种。若参数为空，即取消所有深度订阅�
 #### 错误处理
 当接口调用失败时，系统会返回表示错误的应答。
 语法
-```javascript
+```
 {
   	“error"	: 
 {
