@@ -194,7 +194,7 @@ orderType | 是 |  | 订单类型 | LIMIT
 {
 	"symbol" 	:  "BCHUSDT",
 	"side"   		:  "BUY",
-	"price"		:  "451.29"
+	"price"		:  "451.29",
 	"orderQty" 	:  "0.14536",
 	"orderType"	:  "LIMIT"
 }
