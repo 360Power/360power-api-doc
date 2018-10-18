@@ -82,10 +82,10 @@ Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&an
 ```
 
 #### 查询指定单
-路径：		/exchange/orders/get/{orderId}
+路径：		/exchange/orders/get/orderId/{orderId}
 方法: 		GET
 示例：
-路径	/exchange/orders/get/43960eab-d040-4eca-a4cd-bb20473e9960
+路径	/exchange/orders/get/orderId/43960eab-d040-4eca-a4cd-bb20473e9960
 返回	
 
 ```
