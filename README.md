@@ -174,6 +174,9 @@ limit | 否 | 20 | 获取数量 | 最大100
 ```
 
 #### 下单
+Note that when creating an order, the order quantity and order price scale(number of decimal points) will be truncated if they were higher than our accepted values.
+For example, eg LTC/USDT orders will have the order price truncated to 2 decimal places while order quantity will be truncated to 5 decimal places. See appendix B
+
 路径：	/exchange/orders/create
 方法: 	POST
 请求体
@@ -750,3 +753,16 @@ message | String | 错误信息，具体内容参考下面说明
 * ETHBTC
 * LTCBTC
 * BCHBTC
+
+## Appendix B - accepted order quantity and order price scale
+Symbol | Price Scale | Qty Scale
+--- | --- | ---
+ETHBTC | 6 | 3
+BCHBTC | 5 | 3
+LTCBTC | 6 | 3
+BTCUSDT | 2 | 6
+ETHUSDT | 2 | 5
+BCHUSDT | 2 | 5
+LTCUSDT | 2 | 5
+BCHETH | 8 | 8
+LTCETH | 5 | 3
