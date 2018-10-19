@@ -755,6 +755,9 @@ message | String | 错误信息，具体内容参考下面说明
 * BCHBTC
 
 ## Appendix B - accepted order quantity and order price scale
+Note that when creating an order, the order quantity and order price scale(number of decimal points) will be truncated if they were higher than our accepted values.
+For example, eg LTC/USDT orders will have the order price truncated to 2 decimal places while order quantity will be truncated to 5 decimal places.
+
 Symbol | Price Scale | Qty Scale
 --- | --- | ---
 ETHBTC | 6 | 3
