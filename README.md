@@ -24,15 +24,15 @@ BIGER 的REST API URL为 https://pub-api.biger.in , 在使用REST API 操作订�
 
 `名字` | `值`
 ----------------- | -----------------------------------------
-UCEX-ACCESS-TOKEN | 申请后获取的Access Token
-UCEX-REQUEST-EXPIRY | 此请求的过期时间，Unix epoch millisecond 
-UCEX-REQUEST-HASH | 由请求参数和私钥计算出来的签名
+BIGER-ACCESS-TOKEN | 申请后获取的Access Token
+BIGER-REQUEST-EXPIRY | 此请求的过期时间，Unix epoch millisecond 
+BIGER-REQUEST-HASH | 由请求参数和私钥计算出来的签名
 
 ### 签名运算
 用SHA256进行签名，签名计算的字符串由以下四部分连接组成
 * query string
 * 请求方法
-* UCEX-REQUEST-EXPIRY的值
+* BIGER-REQUEST-EXPIRY的值
 * 请求体
 
 `示例`
@@ -40,13 +40,13 @@ UCEX-REQUEST-HASH | 由请求参数和私钥计算出来的签名
 { 
 GET /exchange/someEndpoint?someKey=someValue&anotherKey=anotherValue
 HOST:xxxx
-UCEX-REQUEST-EXPIRY: 999999999999999
-UCEX-ACCESS-TOKEN: myAccessToken
-UCEX-REQUEST-HASH: c8owjqPSnY4mgFK8IHTk+1S+zhaEaAdoS6tJvr+o5FJFLymMyedOC6xJL9vCmVHALgXm+1mwF+0z1ZHVyJDKrdptZIfXis1tswBtt0v4k69ADYBlZkpLAhCpf0s55OQ18BbhGsrWpjm2kLtPEsPY3hvsh5nqWQQfJRAMzWFmg/8hnNa3MvWJLpZexFOYRLzmTdqthhKlw8pOvuE4pURbe27OLS4lINwY+0ck1DGINRE4/UtH+kYK3AAQq8CE/mSnWVNrIBFpYAe0frEZDluYppnuVXs3IGIQelR3RPqyYY5bfdccHVU8yBBaACRWZMTnvbdQW3TOSV/ccojaHEHBJA==
+BIGER-REQUEST-EXPIRY: 999999999999999
+BIGER-ACCESS-TOKEN: myAccessToken
+BIGER-REQUEST-HASH: c8owjqPSnY4mgFK8IHTk+1S+zhaEaAdoS6tJvr+o5FJFLymMyedOC6xJL9vCmVHALgXm+1mwF+0z1ZHVyJDKrdptZIfXis1tswBtt0v4k69ADYBlZkpLAhCpf0s55OQ18BbhGsrWpjm2kLtPEsPY3hvsh5nqWQQfJRAMzWFmg/8hnNa3MvWJLpZexFOYRLzmTdqthhKlw8pOvuE4pURbe27OLS4lINwY+0ck1DGINRE4/UtH+kYK3AAQq8CE/mSnWVNrIBFpYAe0frEZDluYppnuVXs3IGIQelR3RPqyYY5bfdccHVU8yBBaACRWZMTnvbdQW3TOSV/ccojaHEHBJA==
 }
 ```
 
-UCEX-REQUEST-HASH 计算公式如下: 
+BIGER-REQUEST-HASH 计算公式如下: 
 ```
 {
 Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&anotherKey=anotherValueGET999999999999999”)))
@@ -82,10 +82,10 @@ Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&an
 ```
 
 #### 查询指定单
-路径：		/exchange/orders/get/{orderId}
+路径：		/exchange/orders/get/orderId/{orderId}
 方法: 		GET
 示例：
-路径	/exchange/orders/get/43960eab-d040-4eca-a4cd-bb20473e9960
+路径	/exchange/orders/get/orderId/43960eab-d040-4eca-a4cd-bb20473e9960
 返回	
 
 ```
@@ -174,6 +174,9 @@ limit | 否 | 20 | 获取数量 | 最大100
 ```
 
 #### 下单
+Note that when creating an order, the order quantity and order price scale(number of decimal points) will be truncated if they were higher than our accepted values.
+For example, eg LTC/USDT orders will have the order price truncated to 2 decimal places while order quantity will be truncated to 5 decimal places. See appendix B
+
 路径：	/exchange/orders/create
 方法: 	POST
 请求体
@@ -194,7 +197,7 @@ orderType | 是 |  | 订单类型 | LIMIT
 {
 	"symbol" 	:  "BCHUSDT",
 	"side"   		:  "BUY",
-	"price"		:  "451.29"
+	"price"		:  "451.29",
 	"orderQty" 	:  "0.14536",
 	"orderType"	:  "LIMIT"
 }
@@ -266,7 +269,7 @@ Or in cases of error	{
 ## Temporary token exchange
 Some websocket APIs require you to authenticate using a temporary API token. To retrieve this temporary API token, you need to request
 via a HTTP POST to https://pub-api.biger.in/tokens/exchange
-with content type application/x-www-form-urlencoded and include request parameter 'accessToken' where the value is the value of your access token.
+with HTTP header BIGER-ACCESS-TOKEN-FOR-EXCHANGE where the value is your access token.
 
 You should get a HTTP 200 response (if not then check your access token or contact us) that looks like the below-
 ```
@@ -767,4 +770,21 @@ message | String | 错误信息，具体内容参考下面说明
 * ETHBTC
 * LTCBTC
 * BCHBTC
+
+=======
+## Appendix B - accepted order quantity and order price scale
+Note that when creating an order, the order quantity and order price scale(number of decimal points) will be truncated if they were higher than our accepted values.
+For example, eg LTC/USDT orders will have the order price truncated to 2 decimal places while order quantity will be truncated to 5 decimal places.
+
+Symbol | Price Scale | Qty Scale
+--- | --- | ---
+ETHBTC | 6 | 3
+BCHBTC | 5 | 3
+LTCBTC | 6 | 3
+BTCUSDT | 2 | 6
+ETHUSDT | 2 | 5
+BCHUSDT | 2 | 5
+LTCUSDT | 2 | 5
+BCHETH | 8 | 8
+LTCETH | 5 | 3
 
