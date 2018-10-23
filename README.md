@@ -5,7 +5,7 @@ BIGER OPEN API 提供两种API， 1. Rest API 用于操作用户账户和订单�
 * WebSocket API: 获取市场行情
 * REST API: 查询账户信息, 可用金额和冻结金额
 * REST API: 执行买入、卖出、撤单和查询挂单命令
-
+* Temporary websocket auth token exchange
 
 # REST API 简介
 BIGER 的REST API URL为 https://pub-api.biger.in , 在使用REST API 操作订单时，需要使用签名认证，以保证通信安全。通过REST API操作以下功能
@@ -24,15 +24,15 @@ BIGER 的REST API URL为 https://pub-api.biger.in , 在使用REST API 操作订�
 
 `名字` | `值`
 ----------------- | -----------------------------------------
-UCEX-ACCESS-TOKEN | 申请后获取的Access Token
-UCEX-REQUEST-EXPIRY | 此请求的过期时间，Unix epoch millisecond 
-UCEX-REQUEST-HASH | 由请求参数和私钥计算出来的签名
+BIGER-ACCESS-TOKEN | 申请后获取的Access Token
+BIGER-REQUEST-EXPIRY | 此请求的过期时间，Unix epoch millisecond 
+BIGER-REQUEST-HASH | 由请求参数和私钥计算出来的签名
 
 ### 签名运算
 用SHA256进行签名，签名计算的字符串由以下四部分连接组成
 * query string
 * 请求方法
-* UCEX-REQUEST-EXPIRY的值
+* BIGER-REQUEST-EXPIRY的值
 * 请求体
 
 `示例`
@@ -40,13 +40,13 @@ UCEX-REQUEST-HASH | 由请求参数和私钥计算出来的签名
 { 
 GET /exchange/someEndpoint?someKey=someValue&anotherKey=anotherValue
 HOST:xxxx
-UCEX-REQUEST-EXPIRY: 999999999999999
-UCEX-ACCESS-TOKEN: myAccessToken
-UCEX-REQUEST-HASH: c8owjqPSnY4mgFK8IHTk+1S+zhaEaAdoS6tJvr+o5FJFLymMyedOC6xJL9vCmVHALgXm+1mwF+0z1ZHVyJDKrdptZIfXis1tswBtt0v4k69ADYBlZkpLAhCpf0s55OQ18BbhGsrWpjm2kLtPEsPY3hvsh5nqWQQfJRAMzWFmg/8hnNa3MvWJLpZexFOYRLzmTdqthhKlw8pOvuE4pURbe27OLS4lINwY+0ck1DGINRE4/UtH+kYK3AAQq8CE/mSnWVNrIBFpYAe0frEZDluYppnuVXs3IGIQelR3RPqyYY5bfdccHVU8yBBaACRWZMTnvbdQW3TOSV/ccojaHEHBJA==
+BIGER-REQUEST-EXPIRY: 999999999999999
+BIGER-ACCESS-TOKEN: myAccessToken
+BIGER-REQUEST-HASH: c8owjqPSnY4mgFK8IHTk+1S+zhaEaAdoS6tJvr+o5FJFLymMyedOC6xJL9vCmVHALgXm+1mwF+0z1ZHVyJDKrdptZIfXis1tswBtt0v4k69ADYBlZkpLAhCpf0s55OQ18BbhGsrWpjm2kLtPEsPY3hvsh5nqWQQfJRAMzWFmg/8hnNa3MvWJLpZexFOYRLzmTdqthhKlw8pOvuE4pURbe27OLS4lINwY+0ck1DGINRE4/UtH+kYK3AAQq8CE/mSnWVNrIBFpYAe0frEZDluYppnuVXs3IGIQelR3RPqyYY5bfdccHVU8yBBaACRWZMTnvbdQW3TOSV/ccojaHEHBJA==
 }
 ```
 
-UCEX-REQUEST-HASH 计算公式如下: 
+BIGER-REQUEST-HASH 计算公式如下: 
 ```
 {
 Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&anotherKey=anotherValueGET999999999999999”)))
@@ -265,6 +265,23 @@ Or in cases of error	{
 
 # Websocket API
  Websocket API URL为 wss://www.biger.in/ws , 通过websocket API可以获取市场数据。
+
+## Temporary token exchange
+Some websocket APIs require you to authenticate using a temporary API token. To retrieve this temporary API token, you need to request
+via a HTTP POST to https://pub-api.biger.in/tokens/exchange
+with HTTP header BIGER-ACCESS-TOKEN-FOR-EXCHANGE where the value is your access token.
+
+You should get a HTTP 200 response (if not then check your access token or contact us) that looks like the below-
+```
+{
+    "code": 200,
+    "result": "0d4fCb6YHhhOg6QsTyhydOLqISfF8V8aU8CV39w1BjeBXMv9oHiKrAcsRkpasmrRNh/LJzoEf/Ah4ul/ELnmKg0z/jvJ3DOhnsPO16UhW2LC6+Gw1EHh5bpMQx1AVeMjDAZZ9fMCJe52lbwvV6QaresUtez8tJFrvIfoL/APVX0wt60Ze54Gu0lCOVTUoYLHlOopBg+Vrrzxm5vtsSSG32Ivm2zr2vQ7ydxhiutpXwA4CXUfT60QBo0cU0l6UL9yd/dPnB/UXQ7PIveoQzb7/kxJ8dIeykxSVbkVN7q0JL9psKDGqn//UmkGui5huvIWlJuun2RAKujZna5uMdVW1aRObt8nSxjJey1AXThaW6AWnObre1h49l1MHn+qf+I6StJiUOljPKL0gbdvOGMXlsiMRNdxnvDeJuwWghiFByINYmGvp1BrYb7Ipe7Ja38YRMdidd3Z7TvXUKIj7iv5BWL0fNO+OGeXpuWQOelP5rhyeOwvra2yRPzrUMkUnuZGrrpjQpQvqmiGpkPvdCyLYsjUhaCpRRwAcGbtw+yN+SY=",
+    "encryptedKey": "Ukb6CLSg5g0Ey4iKZUeVq/HcNacXKwjGC+8UCwMAdej7V+V7Xdp4yE4drYV5YPJu/fr/nVtVWVogfLMKF9sHMpPU6KDZeFsGZlsciTDnf3uDcS5b7mgpsap6DU38rxE7+20GiWQf5TUTIcJ23lI9oRZSE9ooU5NCDgHtQsrshIP1HiI4+iACC9WiLOqo9zESgFsRr9I7ICjQNM7sFjw4NsCLurJdFaFdC79vjMruq6DpcnkWRbLysQFqRWxBQsxAkXB1i1FMeU3McTdKkEWyuOKwpLBXDm9VKlauS7VKOgWEPQ+mUeiPi6KwHBhtIGzbJ8glCAsxVyQ+j06KuxajRg=="
+}
+```
+Now perform the following steps
+  * base64 decode the value of 'encryptedKey', and then use your private key to decrypt the result to obtain AES secret key
+  * base64 decode the value of 'result', and then perform AES decryption using the AES secret key on the result to obtain your temporary token
 
 ## 系统接口
 ### 心跳请求
@@ -754,6 +771,7 @@ message | String | 错误信息，具体内容参考下面说明
 * LTCBTC
 * BCHBTC
 
+=======
 ## Appendix B - accepted order quantity and order price scale
 Note that when creating an order, the order quantity and order price scale(number of decimal points) will be truncated if they were higher than our accepted values.
 For example, eg LTC/USDT orders will have the order price truncated to 2 decimal places while order quantity will be truncated to 5 decimal places.
@@ -769,3 +787,4 @@ BCHUSDT | 2 | 5
 LTCUSDT | 2 | 5
 BCHETH | 8 | 8
 LTCETH | 5 | 3
+
