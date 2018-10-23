@@ -283,6 +283,8 @@ Now perform the following steps
   * base64 decode the value of 'encryptedKey', and then use your private key to decrypt the result to obtain AES secret key
   * base64 decode the value of 'result', and then perform AES decryption using the AES secret key on the result to obtain your temporary token
 
+Note that the temporary token is only valid for 30 seconds.
+
 ## 系统接口
 ### 心跳请求
 客户端需定时向系统发送心跳请求以确认网络和系统状态正常。正常情况下，系统会立即回复Pong消息。系统超出30秒没有收到客户端的心跳请求，将关闭客户端网络链接。
