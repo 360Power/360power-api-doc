@@ -263,7 +263,7 @@ Or in cases of error	{
 
 
 # REST K线历史数据
- K线的REST API只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
+ K线的REST API https://biger.in/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
 
 ## 语法
 
