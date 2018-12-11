@@ -119,7 +119,7 @@ Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&an
 返回字段说明
 
 字段名 | 描述 | 取值
------------ | ----------------------------------------- | ---------------
+----------- | --------------------------------------------------------- | ---------------
 orderId | 系统产生的订单标识 | GUID
 clientOrderId | 终端显示的订单标识 | 64bit Integer 
 orderState | 订单状态 | PENDING: 系统接收了订单，正在处理中 ; NEW: 新订单处理完毕 ; PARTIALLY_FILLED: 部分成交 ; FILLED: 全部成交 ; PENDING_CANCEL: 正在取消 ; CANCELED: 已取消(可能有部分成交) ; REJECTED:  已拒接(拒接原因在rejectReason)
@@ -267,7 +267,8 @@ Or in cases of error	{
 
 ## 语法
 
-参数 | 属性 | 类型 | 说明
+参数 | 属性 | 类型 | 说明  
+------ | ------ | ------ | ------------------------------------------------------
 symbol | 必须 | String | oin pair symbol, eg. BTCUSDT
 period / interval | 必须 | String | K线时间周期，可能的值：1min，5min，15min，30min，60min，1day，1mon，1week，60，300，900，1800，3600，86400，604800, 2592000
 start_time  | 	可选 | Integer | 缺省为取200根K线的开始时间，从1970年1月1日开始计算的UTC时间，以秒为单位. eg. 1543274801
