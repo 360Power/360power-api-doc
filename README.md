@@ -19,6 +19,19 @@ BIGER 的REST API URL为 https://pub-api.biger.in , 在使用REST API 操作订�
 ### 安全认证
 基于安全考虑，除行情外的REST API均需要访问令牌，即Access Token.一个账户可以申请多个Access Token, 以满足每个APP使用独立的Access Token。Access Token需单独申请，请联系管理员. 申请时需提供公钥和Access Token的过期日, 还有用API的IP地址，目前支持的公钥是RSA。
 
+To apply for access token, you will also first need to generate you rown RSA key pair, and give us your public key. (keep your private key safe on your own end).
+
+To generate a RSA key pair, you can use a multitude of openly available tools.
+ * option 1 - Using openssl via command line - https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/
+ * option 2 - a few lines of java code - 
+```
+        KeyPairGenerator g = KeyPairGenerator.getInstance("RSA");
+        g.initialize(2048);
+        KeyPair p = g.generateKeyPair();
+        Files.write(Paths.get("private"), p.getPrivate().getEncoded(), StandardOpenOption.CREATE_NEW);
+        Files.write(Paths.get("public"), p.getPublic().getEncoded(), StandardOpenOption.CREATE_NEW);
+```
+
 ### 请求头
 
 非行情API均需以下三个请求头
