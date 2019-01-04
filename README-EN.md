@@ -18,9 +18,9 @@ BIGER REST API URL is under: https://pub-api.biger.in , when you use REST API to
 * Exeucte Orders
 
 
-## Signiture
+## Signing requests
 ### Token Authentication
-To make sure API commucation is safe，REST API must need Access token apart from Market Data API, every account  can apply multiple Access Token, so that each APP can use different Access Token。
+To make sure that API commucation is safe，REST API must need Access token apart from Market Data API, every account  can apply multiple Access Token, so that each APP can use different Access Token。
 Access Token need to apply in http://biger.in, please provide your public key (RSA), the expire data of Access Token and IP address when you apply Access Token.
 
 To apply for access token, you will also first need to generate you rown RSA key pair, and give us your public key. (keep your private key safe on your own end).
