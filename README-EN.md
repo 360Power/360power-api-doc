@@ -2,32 +2,28 @@
 Official Documentation for the Biger APIs and Streams
 
 
-BIGER OPEN API Provides two type APIs, 
-1. Rest API for Account and Orders and query historic K line data
-2. WebSocket API for realtime market data and K-line data:
+BIGER OPEN API Provides two type APIs， 1. Rest API for Account and Orders and query historic K line data，2. WebSocket API for realtime market data and K-line data：
 
 * WebSocket API: Query market data and K line data
 * REST API: Query Account information and balance
-* REST API: Execute Order, query Orders and cancel orders 
-* REST API: query K line data history
+* REST API: Execute Order, queyr Orders and cancel orders 
+* REST API: query historic K line data
 * Temporary websocket auth token exchange
 
 # REST API Introduction
-BIGER REST API URL is https://pub-api.biger.in. When you use the REST API to execute/query orders, you need to sign your request so that we can authenticate our identity and protect against middleman tempering of the request.
-
-The REST API provides following functions:
+BIGER REST API URL is under: https://pub-api.biger.in , when you use REST API to execute orders, you need to sign your request to make sure the communication safty 
+. REST API Provdies following functions:
 * Query markets
 * Operate Account, e.g. query balance
 * Exeucte Orders
 
+
 ## Signing requests
 ### Token Authentication
-To make sure that API commucation is safe，REST API must need Access token apart from Market Data API, every account  can apply multiple Access Token, so that each APP can use different Access Token.
+To make sure that API commucation is safe，REST API must need Access token apart from Market Data API, every account  can apply multiple Access Token, so that each APP can use different Access Token。
+Access Token need to apply in http://biger.in, please provide your public key (RSA), the expire data of Access Token and IP address when you apply Access Token.
 
-To apply for your access token, please contact us via service@biger.in or other customer support channels provided on https://biger.in.
-You will need to provide your public key (RSA), the desired expiry date of Access Token(else we will give  you 1 year) and IP address when you apply for the Access Token.
-
-One of the requirements is that you generate your own RSA key pair, and give us your public key. (keep your private key safe on your own end).
+To apply for access token, you will also first need to generate you rown RSA key pair, and give us your public key. (keep your private key safe on your own end).
 
 To generate a RSA key pair, you can use a multitude of openly available tools.
  * option 1 - Using openssl via command line - https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/
@@ -36,8 +32,8 @@ To generate a RSA key pair, you can use a multitude of openly available tools.
         KeyPairGenerator g = KeyPairGenerator.getInstance("RSA");
         g.initialize(2048);
         KeyPair p = g.generateKeyPair();
-        Files.write(Paths.get("private.der"), p.getPrivate().getEncoded(), StandardOpenOption.CREATE_NEW);
-        Files.write(Paths.get("public.der"), p.getPublic().getEncoded(), StandardOpenOption.CREATE_NEW);
+        Files.write(Paths.get("private"), p.getPrivate().getEncoded(), StandardOpenOption.CREATE_NEW);
+        Files.write(Paths.get("public"), p.getPublic().getEncoded(), StandardOpenOption.CREATE_NEW);
 ```
 
 ### 请求头
@@ -283,25 +279,25 @@ Or in cases of error	{
 * The system is busy, please try again later – 系统繁忙，请重试
 
 
-# REST K线历史数据
- K线的REST API https://biger.in/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
+# REST K-line query API
+ REST API https://biger.in/md/kline is dedicated to K-line history query. Please use WebSocket API for real-time K-Line subscription/query.
 
 ## 语法
 
-参数 | 属性 | 类型 | 说明  
+Param | Required | Type | Description  
 ------ | ------ | ------ | ------------------------------------------------------
-symbol | 必须 | String | oin pair symbol, eg. BTCUSDT
-period / interval | 必须 | String | K线时间周期，可能的值：1min，5min，15min，30min，60min，1day，1mon，1week，60，300，900，1800，3600，86400，604800, 2592000
-start_time  | 	可选 | Integer | 缺省为取200根K线的开始时间，从1970年1月1日开始计算的UTC时间，以秒为单位. eg. 1543274801
-end_time | 可选 | Integer | 缺省为当前时间，从1970年1月1日开始计算的UTC时间，以秒为单位. eg. 1543274801
+symbol | Yes | String | coin pair symbol, eg. BTCUSDT
+period / interval | Yes | String | K-line timeframe. Possible values：1min，5min，15min，30min，60min，1day，1mon，1week，60，300，900，1800，3600，86400，604800, 2592000
+start_time  | 	No | Integer | time in seconds since epoch. eg. 1543274801. The default value is the start time of last 200 K-lines，
+end_time | No | Integer | time in seconds since epoch. eg. 1543274801. The default value is current time.
 
-### HTTP  请求 URL
+### HTTP request URL syntax
 ```
 https://biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
 
 ```
 
-### HTTP返回
+### HTTP response syntax
 ```
 {“error":null,"id":0,"result":[
     [
@@ -318,10 +314,11 @@ https://biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<
 ]}
 ```
 
-### 示例
+### Sample
 ```
-请求: https://biger.in/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
-返回: 
+Request: 
+https://biger.in/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
+Response: 
 {“error":null,"id":0,"result":[
 [1543190400,”4394","3863.05","4394","3701.72","1809.258054","7117136.76413459","BTCUSDT"],
 [1543276800,”3862.7","3875.11","3939.02","3686.59","1597.117575","6097170.88594629","BTCUSDT"],
@@ -353,11 +350,11 @@ Now perform the following steps
 
 Note that the temporary token is only valid for 30 seconds.
 
-## 系统接口
-### 心跳请求
-客户端需定时向系统发送心跳请求以确认网络和系统状态正常。正常情况下，系统会立即回复Pong消息。系统超出30秒没有收到客户端的心跳请求，将关闭客户端网络链接。
+## System APIs
+### Heartbeat request
+To keep a websocket session live, client is reuqired to send ping request periodically to biger. And Biger market data service (Biger MD in short) will respond a Pong message immediately to help client identify session states. A session would be closed if Biger MD failed to receive a ping message in 30s.
 
-语法
+Syntax
 ```
 {
 "method"	: "server.ping",
@@ -367,16 +364,17 @@ Note that the temporary token is only valid for 30 seconds.
 
 ```
 
-### 示例
+### Sample
 ```
-请求: {"method": "server.ping", "params": [], "id": 1516681178}
-返回: {"result": "pong", "error": null, "id": 1516681178}
+Request: {"method": "server.ping", "params": [], "id": 1516681178}
+Response: {"result": "pong", "error": null, "id": 1516681178}
 ```
 
-### 查询系统时间
-获取当前系统时间，回复时间从Epoch开始计算起，单位为秒。本文以下所有涉及时间的参数以及回复内容均为Epoch时间。建议客户端用此时间作为与系统交互的时间基准。
+### Server time query
+Get the current time of Biger MD. It is in seconds since epoch. It is suggested that client use the value to keep in sync with Biger MD.
+Please note all time related parameters in websocket API request and responses are all in seconds since epoch.
 
-语法
+Syntax
 ```
 {
   "method"	: "server.time",
@@ -385,11 +383,10 @@ Note that the temporary token is only valid for 30 seconds.
 }
 ```
 
-示例
-
+Sample
 ```
-请求: {"method": "server.time", "params": [], "id": 1516681178}
-返回: {"result": 1520437025, "error": null, "id": 1516681178}
+Request: {"method": "server.time", "params": [], "id": 1516681178}
+Response: {"result": 1520437025, "error": null, "id": 1516681178}
 ```
 
 
@@ -894,11 +891,11 @@ public class TokenValidityCheck {
 
     private static String hash(byte[] payload) throws Exception {
         Cipher c = Cipher.getInstance("RSA");
-        c.init(Cipher.ENCRYPT_MODE, KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(ClassLoader.getSystemResourceAsStream("private.der").readAllBytes())), new SecureRandom());
+        c.init(Cipher.ENCRYPT_MODE, KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(ClassLoader.getSystemResourceAsStream("private").readAllBytes())), new SecureRandom());
 
         return Base64.getEncoder().encodeToString(c.doFinal(MessageDigest.getInstance("SHA-256").digest(payload)));
     }
 
 }
 ```
-You need to provide the resource 'private.der' which is your pkcs8 private key in DER format as well as replace myAccessToken with your actual access token.
+You need to provide the resource 'private' which is your private key in DER format as well as replace myAccessToken with your actual access token.
