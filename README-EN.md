@@ -415,7 +415,7 @@ end_time  | Yes      | Integer | end time in seconds since epoch
 interval  | Yes      | Integer | time frame
 
 ##### Response syntax:
-```json
+```
 "result": [
     [
         1492358400,   <= Time
