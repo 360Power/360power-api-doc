@@ -40,39 +40,37 @@ To generate a RSA key pair, you can use a multitude of openly available tools.
         Files.write(Paths.get("public.der"), p.getPublic().getEncoded(), StandardOpenOption.CREATE_NEW);
 ```
 
-### 请求头
+### Request headers
 
-非行情API均需以下三个请求头
+Rest API endpoints that require authentication (generally those to deal with orders) need to be signed and filled with specific http request headers.
 
-`名字` | `值`
+HTTP header name | Value
 ----------------- | -----------------------------------------
-BIGER-ACCESS-TOKEN | 申请后获取的Access Token
-BIGER-REQUEST-EXPIRY | 此请求的过期时间，Unix epoch millisecond 
-BIGER-REQUEST-HASH | 由请求参数和私钥计算出来的签名
+BIGER-ACCESS-TOKEN | Access token that we provided you
+BIGER-REQUEST-EXPIRY | Time of expiry of this request, Unix epoch millisecond (we will reject requests that arrive later than this time)
+BIGER-REQUEST-HASH | Calculated hash value(signature) that you have to compute
 
-### 签名运算
-用SHA256进行签名，签名计算的字符串由以下四部分连接组成
+### Generating BIGER-REQUEST-HASH
+First, use SHA256 digest on the string that is formed by concatenating the values of
 * query string
-* 请求方法
-* BIGER-REQUEST-EXPIRY的值
-* 请求体
+* http request method
+* BIGER-REQUEST-EXPIRY
+* request body
 
-`示例`
+`Example`
 ```
-{ 
 GET /exchange/someEndpoint?someKey=someValue&anotherKey=anotherValue
 HOST:xxxx
 BIGER-REQUEST-EXPIRY: 999999999999999
 BIGER-ACCESS-TOKEN: myAccessToken
 BIGER-REQUEST-HASH: c8owjqPSnY4mgFK8IHTk+1S+zhaEaAdoS6tJvr+o5FJFLymMyedOC6xJL9vCmVHALgXm+1mwF+0z1ZHVyJDKrdptZIfXis1tswBtt0v4k69ADYBlZkpLAhCpf0s55OQ18BbhGsrWpjm2kLtPEsPY3hvsh5nqWQQfJRAMzWFmg/8hnNa3MvWJLpZexFOYRLzmTdqthhKlw8pOvuE4pURbe27OLS4lINwY+0ck1DGINRE4/UtH+kYK3AAQq8CE/mSnWVNrIBFpYAe0frEZDluYppnuVXs3IGIQelR3RPqyYY5bfdccHVU8yBBaACRWZMTnvbdQW3TOSV/ccojaHEHBJA==
-}
 ```
 
-BIGER-REQUEST-HASH 计算公式如下: 
+Then, use RSA and your private key to encrypt the obtained value, and finally encode using base64 to produce the required BIGER-REQUEST-HASH value.
+
+BIGER-REQUEST-HASH formula
 ```
-{
 Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&anotherKey=anotherValueGET999999999999999”)))
-}
 ```
 
 ## API列表
