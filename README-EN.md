@@ -2,28 +2,32 @@
 Official Documentation for the Biger APIs and Streams
 
 
-BIGER OPEN API Provides two type APIs， 1. Rest API for Account and Orders and query historic K line data，2. WebSocket API for realtime market data and K-line data：
+BIGER OPEN API Provides two type APIs, 
+1. Rest API for Account and Orders and query historic K line data
+2. WebSocket API for realtime market data and K-line data:
 
 * WebSocket API: Query market data and K line data
 * REST API: Query Account information and balance
-* REST API: Execute Order, queyr Orders and cancel orders 
-* REST API: query historic K line data
+* REST API: Execute Order, query Orders and cancel orders 
+* REST API: query K line data history
 * Temporary websocket auth token exchange
 
 # REST API Introduction
-BIGER REST API URL is under: https://pub-api.biger.in , when you use REST API to execute orders, you need to sign your request to make sure the communication safty 
-. REST API Provdies following functions:
+BIGER REST API URL is https://pub-api.biger.in. When you use the REST API to execute/query orders, you need to sign your request so that we can authenticate our identity and protect against middleman tempering of the request.
+
+The REST API provides following functions:
 * Query markets
 * Operate Account, e.g. query balance
 * Exeucte Orders
 
-
 ## Signing requests
 ### Token Authentication
-To make sure that API commucation is safe，REST API must need Access token apart from Market Data API, every account  can apply multiple Access Token, so that each APP can use different Access Token。
-Access Token need to apply in http://biger.in, please provide your public key (RSA), the expire data of Access Token and IP address when you apply Access Token.
+To make sure that API commucation is safe，REST API must need Access token apart from Market Data API, every account  can apply multiple Access Token, so that each APP can use different Access Token.
 
-To apply for access token, you will also first need to generate you rown RSA key pair, and give us your public key. (keep your private key safe on your own end).
+To apply for your access token, please contact us via service@biger.in or other customer support channels provided on https://biger.in.
+You will need to provide your public key (RSA), the desired expiry date of Access Token(else we will give  you 1 year) and IP address when you apply for the Access Token.
+
+One of the requirements is that you generate your own RSA key pair, and give us your public key. (keep your private key safe on your own end).
 
 To generate a RSA key pair, you can use a multitude of openly available tools.
  * option 1 - Using openssl via command line - https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/
@@ -32,8 +36,8 @@ To generate a RSA key pair, you can use a multitude of openly available tools.
         KeyPairGenerator g = KeyPairGenerator.getInstance("RSA");
         g.initialize(2048);
         KeyPair p = g.generateKeyPair();
-        Files.write(Paths.get("private"), p.getPrivate().getEncoded(), StandardOpenOption.CREATE_NEW);
-        Files.write(Paths.get("public"), p.getPublic().getEncoded(), StandardOpenOption.CREATE_NEW);
+        Files.write(Paths.get("private.der"), p.getPrivate().getEncoded(), StandardOpenOption.CREATE_NEW);
+        Files.write(Paths.get("public.der"), p.getPublic().getEncoded(), StandardOpenOption.CREATE_NEW);
 ```
 
 ### 请求头
@@ -890,11 +894,11 @@ public class TokenValidityCheck {
 
     private static String hash(byte[] payload) throws Exception {
         Cipher c = Cipher.getInstance("RSA");
-        c.init(Cipher.ENCRYPT_MODE, KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(ClassLoader.getSystemResourceAsStream("private").readAllBytes())), new SecureRandom());
+        c.init(Cipher.ENCRYPT_MODE, KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(ClassLoader.getSystemResourceAsStream("private.der").readAllBytes())), new SecureRandom());
 
         return Base64.getEncoder().encodeToString(c.doFinal(MessageDigest.getInstance("SHA-256").digest(payload)));
     }
 
 }
 ```
-You need to provide the resource 'private' which is your private key in DER format as well as replace myAccessToken with your actual access token.
+You need to provide the resource 'private.der' which is your pkcs8 private key in DER format as well as replace myAccessToken with your actual access token.
