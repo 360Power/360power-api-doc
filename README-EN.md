@@ -2,7 +2,9 @@
 Official Documentation for the Biger APIs and Streams
 
 
-BIGER OPEN API Provides two type APIs， 1. Rest API for Account and Orders and query historic K line data，2. WebSocket API for realtime market data and K-line data：
+BIGER OPEN API Provides two type APIs, 
+1. Rest API for Account and Orders and query historic K line data
+2. WebSocket API for realtime market data and K-line data：
 
 * WebSocket API: Query market data and K line data
 * REST API: Query Account information and balance
@@ -11,7 +13,8 @@ BIGER OPEN API Provides two type APIs， 1. Rest API for Account and Orders and 
 * Temporary websocket auth token exchange
 
 # REST API Introduction
-BIGER REST API URL is under: https://pub-api.biger.in , when you use REST API to execute orders, you need to sign your request to make sure the communication safty 
+BIGER REST API is at https://pub-api.biger.in.
+When you use REST API to execute requests that require authentication, you need to sign your request so that we can authenticate you, as well as ensure that the request was not tempered by a middleman.
 . REST API Provdies following functions:
 * Query markets
 * Operate Account, e.g. query balance
@@ -20,10 +23,7 @@ BIGER REST API URL is under: https://pub-api.biger.in , when you use REST API to
 
 ## Signing requests
 ### Token Authentication
-To make sure that API commucation is safe，REST API must need Access token apart from Market Data API, every account  can apply multiple Access Token, so that each APP can use different Access Token。
-Access Token need to apply in http://biger.in, please provide your public key (RSA), the expire data of Access Token and IP address when you apply Access Token.
-
-To apply for access token, you will also first need to generate you rown RSA key pair, and give us your public key. (keep your private key safe on your own end).
+To sign your http requests, you need an access token. Please apply for one at http://biger.in. You will need to provide your public key (RSA), the expiry date of requested access Token(else we wil give you 1 year by default) and IP address for whitelisting purposes.
 
 To generate a RSA key pair, you can use a multitude of openly available tools.
  * option 1 - Using openssl via command line - https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/
@@ -32,8 +32,8 @@ To generate a RSA key pair, you can use a multitude of openly available tools.
         KeyPairGenerator g = KeyPairGenerator.getInstance("RSA");
         g.initialize(2048);
         KeyPair p = g.generateKeyPair();
-        Files.write(Paths.get("private"), p.getPrivate().getEncoded(), StandardOpenOption.CREATE_NEW);
-        Files.write(Paths.get("public"), p.getPublic().getEncoded(), StandardOpenOption.CREATE_NEW);
+        Files.write(Paths.get("private.der"), p.getPrivate().getEncoded(), StandardOpenOption.CREATE_NEW);
+        Files.write(Paths.get("public.der"), p.getPublic().getEncoded(), StandardOpenOption.CREATE_NEW);
 ```
 
 ### Request headers
@@ -97,7 +97,7 @@ Return: 	{
 }
 ```
 
-#### 查询指定单
+#### Order query
 URL Path: 		/exchange/orders/get/orderId/{orderId}
 HTTP Method: 		GET
 Sample: 
@@ -131,7 +131,7 @@ Return:
 }
 ```
 
-返回字段说明
+Response parameters description
 
 Parameters | Description | Value
 ----------- | --------------------------------------------------------- | ---------------
@@ -905,4 +905,4 @@ public class TokenValidityCheck {
 
 }
 ```
-You need to provide the resource 'private' which is your private key in DER format as well as replace myAccessToken with your actual access token.
+You need to provide the resource 'private.der' which is your pkcs8 private key in DER format as well as replace myAccessToken with your actual access token.
