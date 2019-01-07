@@ -282,7 +282,7 @@ Or in cases of error	{
 # REST K-line query API
  REST API https://biger.in/md/kline is dedicated to K-line history query. Please use WebSocket API for real-time K-Line subscription/query.
 
-## 语法
+##### Sybtax
 
 Parameter | Required | Type | Description  
 ------ | ------ | ------ | ------------------------------------------------------
@@ -291,13 +291,13 @@ period / interval | Yes | String | K-line timeframe. Possible values：1min，5m
 start_time  | 	No | Integer | time in seconds since epoch. eg. 1543274801. The default value is the start time of last 200 K-lines，
 end_time | No | Integer | time in seconds since epoch. eg. 1543274801. The default value is current time.
 
-### HTTP request URL syntax
+##### HTTP request URL syntax
 ```
 https://biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
 
 ```
 
-### HTTP response syntax
+##### HTTP response syntax
 ```
 {“error":null,"id":0,"result":[
     [
@@ -314,7 +314,7 @@ https://biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<
 ]}
 ```
 
-### Sample
+##### Sample
 ```
 Request: 
 https://biger.in/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
@@ -329,17 +329,17 @@ Response:
 # Websocket API
  Websocket API URL为 wss://www.biger.in/ws , market data service is provided via the API。
 
-## Temporary token exchange
+##### Temporary token exchange
 Some websocket APIs require you to authenticate using a temporary API token. To retrieve this temporary API token, you need to request
 via a HTTP POST to https://pub-api.biger.in/tokens/exchange
 with HTTP header BIGER-ACCESS-TOKEN-FOR-EXCHANGE where the value is your access token.
 
 You should get a HTTP 200 response (if not then check your access token or contact us) that looks like the below-
-```
+```json
 {
-    "code": 200,
-    "result": "0d4fCb6YHhhOg6QsTyhydOLqISfF8V8aU8CV39w1BjeBXMv9oHiKrAcsRkpasmrRNh/LJzoEf/Ah4ul/ELnmKg0z/jvJ3DOhnsPO16UhW2LC6+Gw1EHh5bpMQx1AVeMjDAZZ9fMCJe52lbwvV6QaresUtez8tJFrvIfoL/APVX0wt60Ze54Gu0lCOVTUoYLHlOopBg+Vrrzxm5vtsSSG32Ivm2zr2vQ7ydxhiutpXwA4CXUfT60QBo0cU0l6UL9yd/dPnB/UXQ7PIveoQzb7/kxJ8dIeykxSVbkVN7q0JL9psKDGqn//UmkGui5huvIWlJuun2RAKujZna5uMdVW1aRObt8nSxjJey1AXThaW6AWnObre1h49l1MHn+qf+I6StJiUOljPKL0gbdvOGMXlsiMRNdxnvDeJuwWghiFByINYmGvp1BrYb7Ipe7Ja38YRMdidd3Z7TvXUKIj7iv5BWL0fNO+OGeXpuWQOelP5rhyeOwvra2yRPzrUMkUnuZGrrpjQpQvqmiGpkPvdCyLYsjUhaCpRRwAcGbtw+yN+SY=",
-    "encryptedKey": "Ukb6CLSg5g0Ey4iKZUeVq/HcNacXKwjGC+8UCwMAdej7V+V7Xdp4yE4drYV5YPJu/fr/nVtVWVogfLMKF9sHMpPU6KDZeFsGZlsciTDnf3uDcS5b7mgpsap6DU38rxE7+20GiWQf5TUTIcJ23lI9oRZSE9ooU5NCDgHtQsrshIP1HiI4+iACC9WiLOqo9zESgFsRr9I7ICjQNM7sFjw4NsCLurJdFaFdC79vjMruq6DpcnkWRbLysQFqRWxBQsxAkXB1i1FMeU3McTdKkEWyuOKwpLBXDm9VKlauS7VKOgWEPQ+mUeiPi6KwHBhtIGzbJ8glCAsxVyQ+j06KuxajRg=="
+  "code": 200,
+  "result": "0d4fCb6YHhhOg6QsTyhydOLqISfF8V8aU8CV39w1BjeBXMv9oHiKrAcsRkpasmrRNh/LJzoEf/Ah4ul/ELnmKg0z/jvJ3DOhnsPO16UhW2LC6+Gw1EHh5bpMQx1AVeMjDAZZ9fMCJe52lbwvV6QaresUtez8tJFrvIfoL/APVX0wt60Ze54Gu0lCOVTUoYLHlOopBg+Vrrzxm5vtsSSG32Ivm2zr2vQ7ydxhiutpXwA4CXUfT60QBo0cU0l6UL9yd/dPnB/UXQ7PIveoQzb7/kxJ8dIeykxSVbkVN7q0JL9psKDGqn//UmkGui5huvIWlJuun2RAKujZna5uMdVW1aRObt8nSxjJey1AXThaW6AWnObre1h49l1MHn+qf+I6StJiUOljPKL0gbdvOGMXlsiMRNdxnvDeJuwWghiFByINYmGvp1BrYb7Ipe7Ja38YRMdidd3Z7TvXUKIj7iv5BWL0fNO+OGeXpuWQOelP5rhyeOwvra2yRPzrUMkUnuZGrrpjQpQvqmiGpkPvdCyLYsjUhaCpRRwAcGbtw+yN+SY=",
+  "encryptedKey": "Ukb6CLSg5g0Ey4iKZUeVq/HcNacXKwjGC+8UCwMAdej7V+V7Xdp4yE4drYV5YPJu/fr/nVtVWVogfLMKF9sHMpPU6KDZeFsGZlsciTDnf3uDcS5b7mgpsap6DU38rxE7+20GiWQf5TUTIcJ23lI9oRZSE9ooU5NCDgHtQsrshIP1HiI4+iACC9WiLOqo9zESgFsRr9I7ICjQNM7sFjw4NsCLurJdFaFdC79vjMruq6DpcnkWRbLysQFqRWxBQsxAkXB1i1FMeU3McTdKkEWyuOKwpLBXDm9VKlauS7VKOgWEPQ+mUeiPi6KwHBhtIGzbJ8glCAsxVyQ+j06KuxajRg=="
 }
 ```
 Now perform the following steps
@@ -352,18 +352,18 @@ Note that the temporary token is only valid for 30 seconds.
 ### Heartbeat request
 To keep a websocket session live, client is reuqired to send ping request periodically to biger. And Biger market data service (Biger MD in short) will respond a Pong message immediately to help client identify session states. A session would be closed if Biger MD failed to receive a ping message in 30s.
 
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "server.ping",
-  "params"	: [],
-  "id"		: <id>
+  "method" : "server.ping",
+  "params" : [],
+  "id"     : <id>
 }
 
 ```
 
-### Sample
-```
+##### Sample
+```json
 Request: 
     {"method": "server.ping", "params": [], "id": 1516681178}
 Response: 
@@ -374,17 +374,17 @@ Response:
 Get the current time of Biger MD. It is in seconds since epoch. It is suggested that client use the value to keep in sync with Biger MD.
 Please note all time related parameters in websocket API request and responses are all in seconds since epoch.
 
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "server.time",
-  "params"	: [],
-  "id"		: <id>
+  "method" : "server.time",
+  "params" : [],
+  "id"     : <id>
 }
 ```
 
-Sample
-```
+##### Sample
+```json
 Request: 
     {"method": "server.time", "params": [], "id": 1516681178}
 Response: 
@@ -398,12 +398,12 @@ K-line timeframes：60（1 minute），300（5 minutes）， 600（10 minutes）
 #### K-line query
 At most 2500 k-line entries is allowed to be requested in one request. Otherwise an argument error shall be replied.
 
-Request syntax
+##### Request syntax
 ```
 {
-  "method"	: "kline.query",
-  "params"	: [<symbol>, <start_time>, <end_time>, <interval>],
-  "id"		:      <id>
+  "method" : "kline.query",
+  "params" : ["<symbol>", <start_time>, <end_time>, <interval>],
+  "id"     : <id>
 }
 ```
 
@@ -414,8 +414,8 @@ start_time| Yes      | Integer | start time in seconds since epoch
 end_time  | Yes      | Integer | end time in seconds since epoch
 interval  | Yes      | Integer | time frame
 
-Response syntax:
-```
+##### Response syntax:
+```json
 "result": [
     [
         1492358400,   <= Time
@@ -431,8 +431,8 @@ Response syntax:
 ]
 ```
 
-Sample
-```
+##### Sample
+```json
 > {"method": "kline.query", "params": ["BTCBCH", 1520432255, 1520433255, 900], "id": 1516681178}
 < {
 "result": 
@@ -458,20 +458,20 @@ Sample
             "BTCUSDT"
         ]
     ],
-    "error"	: null,
-    "id"		: 1516681178
+    "error" : null,
+    "id"    : 1516681178
 }
 ```
 
 ####  K-line subscribe
 If subscribe succeeds, Biger MD will publish the lastest 2 k-lines on kline changes.
 
-Request syntax
+##### Request syntax
 ```
 {
-  "method"	: "kline.subscribe",
-  "params"	: [<symbol>, <interval>],
-  "id"		:      <id>
+  "method" : "kline.subscribe",
+  "params" : ["<symbol>", <interval>],
+  "id"     : <id>
 }
 ```
 
@@ -480,8 +480,8 @@ Parameter | Required | Type     | Description
 symbol    | Yes      | String   | trade symbol
 interval  | Yes      | Integer  | K-line timeframe
 
-Sample
-```
+##### Sample
+```json
 > {"method": "kline.subscribe", "params": ["BTCUSDT", 900], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 < {"method": "kline.update", "id": null, "params": [[1520436600, "8040", "8040", "8040", "8040", "9", "72360", "BTCUSDT"]]}
@@ -489,12 +489,12 @@ Sample
 ```
 
 ####  Kline unsubscribe
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "kline.unsubscribe",
-  "params"	: [<symbol>],
-  "id"		: <id>
+  "method" : "kline.unsubscribe",
+  "params" : ["<symbol>"],
+  "id"     : id
 }
 ```
 
@@ -502,20 +502,20 @@ Parameter | Required | Type     | Description
 -------   | -------  | -------- | -------
 symbol    | No       | String   | trading symbol. Unsubscribe all kline subscriptions if no symbol is provided.
 
-Sample
-```
+##### Sample
+```json
 > {"method": "kline.unsubscribe", "params": [], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 ```
 
 ### Price APIs
 #### Price query
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "price.query",
-  "params"	: [<symbol>],
-  "id"		:  <id>
+  "method" : "price.query",
+  "params" : ["<symbol>"],
+  "id"     : id
 }
 ```
 
@@ -523,25 +523,25 @@ Parameter | Required | Type    | Description
 -------   | -------  | ------- | --------
 symbol    | Yes      | String  | trade symbol
 
-Sample
-```
+##### Sample
+```json
 > {"method": "price.query", "params": ["BTCUSDT"], "id": 1516681178}
 < {
-    "result"	: "8074.00000000",
-    "error"	: null,
-    "id"		: 1516681178
+    "result" : "8074.00000000",
+    "error"  : null,
+    "id"     : 1516681178
   }
 ```
 
 #### Price subscribe
 BigerMD will publish the lastest price on changes.
 
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "price.subscribe",
-  "params"	: [<symbol>],
-  "id"		:  <id>
+  "method" : "price.subscribe",
+  "params" : ["<symbol>"],
+  "id"     :  id
 }
 ```
 
@@ -549,8 +549,8 @@ Parameter | Required | Type    | Description
 -------   | -------  | ------- | --------
 symbol    | Yes      | String  | trade symbol
 
-Sample
-```
+##### Sample
+```json
 > {"method": "price.subscribe", "params": ["BTCUSDT"], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 < {"method": "price.update", "id": null, "params": ["BTCUSDT", "8050"]}
@@ -558,12 +558,12 @@ Sample
 
 #### Price unsubscribe
 
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "price.unsubscribe",
-  "params"	: [<symbol>],
-  "id"		:      <id>
+  "method" : "price.unsubscribe",
+  "params" : ["<symbol>"],
+  "id"     : <id>
 }
 ```
 
@@ -571,8 +571,8 @@ Parameter | Required | Type     | Description
 -------   | -------  | -------- | --------
 symbol    | No      | String    | trading symbol. Unsubscribe all price subscriptions if no symbol is provided.
 
-Sample
-```
+##### Sample
+```json
 > {"method": "price.unsubscribe", "params": [], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 ```
@@ -582,12 +582,12 @@ Sample
 
 Biger MD only allows to query the latest 100 trades.
 
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "deals.query",
-  "params"	: [“<symbol>”, “<limit>”, “<last_id>”],
-  "id"		:      <id>
+  "method" : "deals.query",
+  "params" : ["<symbol>", "<limit>", "<last_id>"],
+  "id"     : <id>
 }
 ```
 
@@ -598,8 +598,8 @@ limit     | Yes      | Integer | the limit of deal count in response.
 last_id   | Yes      | Integer | the start id
 
 
-Sample
-```
+##### Sample
+```json
 > {"method": "deals.query", "params": ["BTCUSDT", 3, 0], "id": 1516681178}
 < {
     "result": [
@@ -634,12 +634,12 @@ Sample
 
 BigerMD will publish the lastest deals on trades.
 
-Syntax
+##### Syntax
 ```
 {
-"method"	: "deals.subscribe",
-"params"	: [“<symbol>”],
-"id"		: <id>
+  "method" : "deals.subscribe",
+  "params" : ["<symbol>"],
+  "id"     : <id>
 }
 ```
 
@@ -647,9 +647,9 @@ Parameter | Required | Type    | Description
 -------   | -------  | ------- | --------
 symbol    | Yes      | String  | trade symbol
 
-Sample
+##### Sample
 
-```
+```json
 > {"method": "deals.subscribe", "params": ["BTCUSDT"], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 < {"method": "deals.update", "id": null, "params": ["BTCUSDT", [{"price": "8044", "type": "buy", "time": 1520438400.361028, "amount": "2", "id": 1762}, {"price": "8078", "type": "buy", "time": 1520438300.341769, "amount": "9", "id": 1761}, {"price": "8076", "type": "buy", "time": 1520438200.324909, "amount": "10", "id": 1760}, {"price": "8056", "type": "buy", "time": 1520438100.3066709, "amount": "3", "id": 1759}, {"price": "8007", "type": "buy", "time": 1520438000.2892129, "amount": "9", "id": 1758}, {"price": "8050", "type": "buy", "time": 1520437900.2736571, "amount": "6", "id": 1757}, {"price": "8074", "type": "buy", "time": 1520437800.257802, "amount": "1", "id": 1756}, {"price": "8014", "type": "buy", "time": 1520437700.239372, "amount": "4", "id": 1755}, {"price": "8054", "type": "buy", "time": 1520437600.223423, "amount": "9", "id": 1754}, {"price": "8049", "type": "buy", "time": 1520437500.2082629, "amount": "8", "id": 1753}, {"price": "8002", "type": "buy", "time": 1520437400.1939909, "amount": "2", "id": 1752}, {"price": "8000", "type": "buy", "time": 1520437300.1761429, "amount": "5", "id": 1751}, {"price": "8002", "type": "buy", "time": 1520437200.1584849, "amount": "10", "id": 1750}, {"price": "8065", "type": "buy", "time": 1520437100.142282, "amount": "5", "id": 1749}, {"price": "8099", "type": "buy", "time": 1520437000.1258199, "amount": "5", "id": 1748}, {"price": "8009", "type": "buy", "time": 1520436900.1072299, "amount": "6", "id": 1747}, {"price": "8066", "type": "buy", "time": 1520436800.0908389, "amount": "10", "id": 1746},
@@ -659,12 +659,12 @@ Sample
 
 #### Deal unsubscribe
 
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "deals.unsubscribe",
-  "params"	: [<market>],
-  "id"		:      <id>
+  "method" : "deals.unsubscribe",
+  "params" : ["<symbol>"],
+  "id"     : <id>
 }
 ```
 
@@ -673,8 +673,8 @@ Parameter | Required | Type     | Description
 symbol	  | No       | String   | trading symbol. Unsubscribe all deals subscriptions if no symbol is provided.
 
 
-Sample
-```
+##### Sample
+```json
 > {"method": "deals.unsubscribe", "params": [], "id": 1516681178}
 < {"result": {"status": "success"}, "error": null, "id": 1516681178}
 
@@ -683,12 +683,12 @@ Sample
 ### Depth APIs
 #### Depth query
 
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "depth.query",
-  "params"	: [“<symbol>”, <limit>, <interval>],
-  "id"		: <id>
+  "method" : "depth.query",
+  "params" : ["<symbol>", <limit>, "<interval>"],
+  "id"     : <id>
 }
 ```
 
@@ -699,13 +699,13 @@ limit     | Yes      | Integer | depth limit
 interval  | Yes      | String  | depth price precision. Use “0” for maxmium precision. Possible values: “0”，”0.1", “0.01", “0.001", “0.0001", “0.00001", “0.000001", “0.0000001", "0.00000001"
 
 
-Sample
-```
+##### Sample
+```json
 > {"method": "depth.query", "params": ["BTCUSDT", 10, "0"], "id": 1516681178}
 < {
     "error"	: null,
-"result": 
-{
+    "result": 
+    {
         "asks": [],
         "bids": [
             [
@@ -760,12 +760,12 @@ In the difference data, it is add/modify if quantity of the price level is non-z
 
 Biger MD will publish a snapshot with 60-second interval.
 
-Syntax
+##### Syntax
 ```
 {
-  "method"	: "depth.subscribe",
-  "params"	: [“<symbol>”, <limit>, "<interval>" ],
-  "id"		: <id>
+  "method" : "depth.subscribe",
+  "params" : ["<symbol>", <limit>, "<interval>" ],
+  "id"     : <id>
 }
 ```
 
@@ -776,8 +776,8 @@ limit     | Yes      | Integer | depth limit
 interval  | Yes      | String  | depth price precision. Use “0” for maxmium precision. Possible values: “0”，”0.1", “0.01", “0.001", “0.0001", “0.00001", “0.000001", “0.0000001", "0.00000001"
 
 
-Sample
-```
+##### Sample
+```json
 > {"method": "depth.subscribe", "params": ["BTCUSDT", 10, "0"], "id": 1516681178}
 < {"error": null, "result": {"status": "success"}, "id": 1516681178}
 < {"method": "depth.update", "params": [true, {"asks": [], "bids": []}, "BTCUSDT"], "id": null}
@@ -785,12 +785,12 @@ Sample
 
 #### Depth unsubscribe
 
-Syntax
+##### Syntax
 ```
 {
-"method"	: "depth.unsubscribe",
-"params"	: ["<symbol>"],
-"id"		: <id>
+  "method" : "depth.unsubscribe",
+  "params" : ["<symbol>"],
+  "id"     : <id>
 }
 ```
 
@@ -798,8 +798,8 @@ Parameter | Required | Type    | Description
 -------   | -------- | ------- | --------
 symbol    | No       |	String | trading symbol. Unsubscribe all deals subscriptions if no symbol is provided.
 
-Sample
-```
+##### Sample
+```json
 > {"method": "depth.unsubscribe", "params": [], "id": 1516681178}
 < {"error": null, "result": {"status": "success"}, "id": 1516681178}
 ```
@@ -808,16 +808,15 @@ Sample
 #### Error Handling
 Biger MD will reply error messages on failures.
 
-Syntax
+##### Syntax
 ```
 {
-  	“error"	: 
-{
-    		“code"		: <code>,
-    		“message"	: "<message>"
+  “error" : {
+    “code"    : <code>,
+    “message" : "<message>"
   	},
-  "id"		:1516681178,
-  "result"	:null
+  "id"     : 1516681178,
+  "result" : null
 }
 ```
 
@@ -826,7 +825,7 @@ Syntax
 code        | Integer | error code. see below for details.
 message     | String  | error message. see below for details.
 
-Error Code Explanation
+##### Error Code Explanation
 
 `Error Code` | `Description`
 ------- | -----------------------------------------------------------------------
