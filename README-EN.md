@@ -69,15 +69,15 @@ BIGER-REQUEST-HASH formula
 Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&anotherKey=anotherValueGET999999999999999”)))
 ```
 
-## API列表
+## Restful API List 
 
-#### 查询钱包
-路径：/exchange/accounts/list/accounts
-方法: GET
-示例：
+#### Query Account Balance
+URL Path: /exchange/accounts/list/accounts
+HTTP Method: GET
+Sample: 
 ```
-路径	/exchange/accounts/list/accounts
-返回	{
+URL Path: 	/exchange/accounts/list/accounts
+Return: 	{
 	"result"		: 	"Success",
  	"code"		: 	200,
  	"msg"		: 	"Success",
@@ -98,11 +98,11 @@ Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&an
 ```
 
 #### 查询指定单
-路径：		/exchange/orders/get/orderId/{orderId}
-方法: 		GET
-示例：
-路径	/exchange/orders/get/orderId/43960eab-d040-4eca-a4cd-bb20473e9960
-返回	
+URL Path: 		/exchange/orders/get/orderId/{orderId}
+HTTP Method: 		GET
+Sample: 
+URL Path: 	/exchange/orders/get/orderId/43960eab-d040-4eca-a4cd-bb20473e9960
+Return: 	
 
 ```
 {
@@ -133,40 +133,40 @@ Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&an
 
 返回字段说明
 
-字段名 | 描述 | 取值
+Parameters | Description | Value
 ----------- | --------------------------------------------------------- | ---------------
-orderId | 系统产生的订单标识 | GUID
-clientOrderId | 终端显示的订单标识 | 64bit Integer 
-orderState | 订单状态 | PENDING: 系统接收了订单，正在处理中 ; NEW: 新订单处理完毕 ; PARTIALLY_FILLED: 部分成交 ; FILLED: 全部成交 ; PENDING_CANCEL: 正在取消 ; CANCELED: 已取消(可能有部分成交) ; REJECTED:  已拒接(拒接原因在rejectReason)
-filledQty | 成交数量 | 到目前成交数量
-totalPrice | 成交额 | 到目前所有成交额加总，单个成交的成交额=成交数量*成交价格
-dealPrice | 成交均价 | totalPrice / filledQty
-completeTime | 完成时间 | Unix epoch milliseconds. 仅全成交有此值
-updateTime | 更新时间 | Unix epoch milliseconds
-rejectReason | 拒接原因 |  String 
-side | 买卖 | BUY, SELL
-symbol | 交易对 | 参考 Appendix A
-orderType | 类型 | LIMIT，暂时只支持限价
-orderQty | 数量 |  string 
-Price | 单价 | String 
+orderId | System Generated Identity | GUID
+clientOrderId | Client Side Order Id | 64bit Integer 
+orderState | Order Status | PENDING: System received order, waiting for processing ; NEW: Order has been processed ; PARTIALLY_FILLED ; FILLED: fulfilled ; PENDING_CANCEL: waiting for cancel ; CANCELED: Already canceled (might already have some filled qty) ; REJECTED: Engine Reject order
+filledQty | FILLED Qty | total filled qty
+totalPrice | Filled total volume | total filled volume,  filled volume = Sum(filledQty * filled price)
+dealPrice | average price | totalPrice / filledQty
+completeTime | completed time | Unix epoch milliseconds. only have this time when Order is fulfilled 
+updateTime | updated time | Unix epoch milliseconds
+rejectReason | reason |  String 
+side | buy or sell | BUY, SELL
+symbol | market symbol | Please refer Appendix A
+orderType | order type | LIMIT，currently only support limit order, market order is coming soon
+orderQty |  qty |  string 
+Price |  price | String 
 
 
 
-#### 查询当前所有单
-路径：	/exchange/orders/current?symbol={ symbol }&side={ side }&offset={ offset=}&limit={ limit }
-方法：	GET
-请求参数
+#### Query all orders
+URL Path: 	/exchange/orders/current?symbol={ symbol }&side={ side }&offset={ offset=}&limit={ limit }
+HTTP Method:	GET
+Request Parameters: 
 
-`参数名` | `必须` | `默认` | `描述` | `取值`
+`Parameters` | `Required?` | `Default` | `Description` | `Value`
 -------| ----- | ------ | ------- | -------------
-symbol | 是 | NA | 币对 | 参考 Appendix A
-side | 是 | NA | 买卖 | BUY, SELL
-offset | 否 | 0 | 起始偏移量  | 用于分页获取
-limit | 否 | 20 | 获取数量 | 最大100
+symbol | Yes | NA | Market Symbol | Refer Appendix A
+side | Yes | NA | Buy or Sell | BUY, SELL
+offset | No | 0 | result start point  | used for paging
+limit | No | 20 | result set item limit | Max is 100
 
-示例：
-路径	/exchange/orders/current?symbol=LTCUSDT&side=BUY&offset=0&limit=50
-返回	
+Sample: 
+URL Path: 	/exchange/orders/current?symbol=LTCUSDT&side=BUY&offset=0&limit=50
+Return: 	
 
 ```
 {
@@ -189,25 +189,25 @@ limit | 否 | 20 | 获取数量 | 最大100
 }
 ```
 
-#### 下单
+#### Place Order
 Note that when creating an order, the order quantity and order price scale(number of decimal points) will be truncated if they were higher than our accepted values.
 For example, eg LTC/USDT orders will have the order price truncated to 2 decimal places while order quantity will be truncated to 5 decimal places. See appendix B
 
-路径：	/exchange/orders/create
-方法: 	POST
-请求体
+URL Path: 	/exchange/orders/create
+HTTP Method: 	POST
+Request Body:
 
-参数名 | 必须? | 默认 | 描述 | 取值
+Parameters | Required? | Default | Description | Value
 -------| ----- | ------ | ------------- | -------------
-symbol | 是 |  | 交易对 | 
-side | 是 |  | 买卖 | BUY,  SELL
-Price | 是 |  | 交易价格 | unit price - String
-orderQty | 是 |  | 交易数量 | String to avoid rounding issues
-orderType | 是 |  | 订单类型 | LIMIT
+symbol | Yes |  | Market symbol | 
+side | Yes |  | Buy or Sell | BUY,  SELL
+Price | Yes |  | Pirce | unit price - String
+orderQty | Yes |  | Quantity | String to avoid rounding issues
+orderType | Yes |  | Order Type | Currently, only support LIMIT order, will support Market Order
 
-示例：
-路径	/exchange/orders/create
-请求体	
+Sample: 
+URL Path: 	/exchange/orders/create
+Request Body:	
 
 ```
 {
@@ -219,7 +219,7 @@ orderType | 是 |  | 订单类型 | LIMIT
 }
 ```
 
-返回	
+Return: 	
 
 ```
 {
@@ -247,12 +247,12 @@ orderType | 是 |  | 订单类型 | LIMIT
 }
 ```
 
-2.2.2撤单
-路径：		/exchange/orders/cancel/{orderId}
-方法:		PUT
-示例：
-路径	/exchange/orders/cancel/725c0119-114c-471c-a2c5-d5c51d0210dd
-返回	
+2.2.2 Cancel Order
+URL Path: 		/exchange/orders/cancel/{orderId}
+HTTP Method: 	PUT
+Sample: 
+URL Path: 	/exchange/orders/cancel/725c0119-114c-471c-a2c5-d5c51d0210dd
+Return: 	
 
 ```
 {
@@ -268,19 +268,19 @@ Or in cases of error	{
 
 ```
 
-常见错误	
-* order.not.exist – 给定订单不存在或者在PENDING状态
-* order.update.error.user.mismatch – 不是此用户订单
-* order.update.error.cancelled – 此此订单已撤销
-* order.cancel.failed.wrong.state – 此订单不可撤销，非NEW和 PARTIALLY_FILLED状态
-* ORDER CANCEL FAILURE PENDING ENGINE – 此订单不在订单簿中，可能已成交
-* The system is busy, please try again later – 系统繁忙，请重试
+Common Error:	
+* order.not.exist –  The Order isn't existed 
+* order.update.error.user.mismatch – Doesn't belong to current user
+* order.update.error.cancelled – Order has been canceled
+* order.cancel.failed.wrong.state – The order cannot be caneled, its not NEW or PARTIALLY_FILLED
+* ORDER CANCEL FAILURE PENDING ENGINE – The order isn't in order book, might be already filled
+* The system is busy, please try again later – 
 
 
 # REST K-line query API
  REST API https://biger.in/md/kline is dedicated to K-line history query. Please use WebSocket API for real-time K-Line subscription/query.
 
-##### Sybtax
+##### Syntax
 
 Parameter | Required | Type | Description  
 ------ | ------ | ------ | ------------------------------------------------------
