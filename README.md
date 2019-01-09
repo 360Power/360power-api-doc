@@ -276,9 +276,71 @@ Or in cases of error	{
 
 
 # REST K线历史数据
- K线的REST API https://biger.in/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
 
-## 语法
+
+## 数字货币24H价格历史的
+路径：	/web-api-gateway/exchange/coins/query/all
+方法：	GET
+请求参数
+无
+
+### 语法
+HTTP Get
+
+#### HTTP  请求 URL
+```
+https://www.biger.in/web-api-gateway/exchange/coins/query/all
+
+```
+
+#### HTTP返回
+```
+{
+    "result": "Success",
+    "code": 200,
+    "msg": "Success",
+    "data": [
+        {
+            "coinCode": 102,
+            "coinName": "BCH",
+            "fullName": "BCH",
+            "scale": 8,
+            "iconUrl": "/s3-prd-static/images/share/admin/admin20181128175337_9870.png",
+            "status": 1,
+            "coinType": 0
+        },
+    ...
+]}
+```
+
+#### 示例
+```
+请求: https://www.biger.in/web-api-gateway/exchange/coins/query/all
+返回: 
+{
+    "result": "Success",
+    "code": 200,
+    "msg": "Success",
+    "data": [
+        {
+            "coinCode": 102,
+            "coinName": "BCH",
+            "fullName": "BCH",
+            "scale": 8,
+            "iconUrl": "/s3-prd-static/images/share/admin/admin20181128175337_9870.png",
+            "status": 1,
+            "coinType": 0
+        },
+    ...
+]}
+```
+
+
+
+
+## 交易对 K线的REST API https://biger.in/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
+
+### 语法
 
 参数 | 属性 | 类型 | 说明  
 ------ | ------ | ------ | ------------------------------------------------------
@@ -287,13 +349,13 @@ period / interval | 必须 | String | K线时间周期，可能的值：1min，5
 start_time  | 	可选 | Integer | 缺省为取200根K线的开始时间，从1970年1月1日开始计算的UTC时间，以秒为单位. eg. 1543274801
 end_time | 可选 | Integer | 缺省为当前时间，从1970年1月1日开始计算的UTC时间，以秒为单位. eg. 1543274801
 
-### HTTP  请求 URL
+#### HTTP  请求 URL
 ```
 https://biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
 
 ```
 
-### HTTP返回
+#### HTTP返回
 ```
 {“error":null,"id":0,"result":[
     [
@@ -310,7 +372,7 @@ https://biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<
 ]}
 ```
 
-### 示例
+#### 示例
 ```
 请求: https://biger.in/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
 返回: 
