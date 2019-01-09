@@ -277,7 +277,69 @@ Common Error:
 * The system is busy, please try again later – 
 
 
-# REST K-line query API
+# REST API to query Market Data and Digit Currency History Data
+
+
+## Digit Currency 24 Hours Price History Query API
+URL Path: /web-api-gateway/exchange/coins/query/all
+HTTP Method： GET
+Request Parameters:
+N/A
+
+### Syntax
+HTTP Get
+
+#### HTTP Request URL
+```
+https://www.biger.in/web-api-gateway/exchange/coins/query/all
+
+```
+
+#### HTTP Response
+```
+{
+    "result": "Success",
+    "code": 200,
+    "msg": "Success",
+    "data": [
+        {
+            "coinCode": 102,
+            "coinName": "BCH",
+            "fullName": "BCH",
+            "scale": 8,
+            "iconUrl": "/s3-prd-static/images/share/admin/admin20181128175337_9870.png",
+            "status": 1,
+            "coinType": 0
+        },
+    ...
+]}
+```
+
+#### Sample
+```
+Request: https://www.biger.in/web-api-gateway/exchange/coins/query/all
+Response: 
+{
+    "result": "Success",
+    "code": 200,
+    "msg": "Success",
+    "data": [
+        {
+            "coinCode": 102,
+            "coinName": "BCH",
+            "fullName": "BCH",
+            "scale": 8,
+            "iconUrl": "/s3-prd-static/images/share/admin/admin20181128175337_9870.png",
+            "status": 1,
+            "coinType": 0
+        },
+    ...
+]}
+```
+
+
+### Market Data K-line query  API
+
  REST API https://biger.in/md/kline is dedicated to K-line history query. Please use WebSocket API for real-time K-Line subscription/query.
 
 ##### Syntax
