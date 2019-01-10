@@ -67,9 +67,152 @@ Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&an
 }
 ```
 
-## API列表
+## REST API列表
+### 市场信息查询接口列表
+市场数据查询接口不需要进行签名和认证
 
-#### 查询钱包
+#### 查询数字货币24H价格历史
+路径：	https://www.biger.in/web-api-gateway/exchange/coins/query/all
+方法：	GET
+请求参数
+无
+
+HTTP  请求 URL: 
+```
+https://www.biger.in/web-api-gateway/exchange/coins/query/all
+
+```
+
+HTTP返回
+```
+{
+    "result": "Success",
+    "code": 200,
+    "msg": "Success",
+    "data": [
+        {
+            "coinCode": 102,
+            "coinName": "BCH",
+            "fullName": "BCH",
+            "scale": 8,
+            "iconUrl": "/s3-prd-static/images/share/admin/admin20181128175337_9870.png",
+            "status": 1,
+            "coinType": 0
+        },
+    ...
+]}
+```
+
+示例
+```
+请求: https://www.biger.in/web-api-gateway/exchange/coins/query/all
+返回: 
+{
+    "result": "Success",
+    "code": 200,
+    "msg": "Success",
+    "data": [
+        {
+            "coinCode": 102,
+            "coinName": "BCH",
+            "fullName": "BCH",
+            "scale": 8,
+            "iconUrl": "/s3-prd-static/images/share/admin/admin20181128175337_9870.png",
+            "status": 1,
+            "coinType": 0
+        },
+    ...
+]}
+```
+
+
+
+#### 交易对24小时价格查询
+
+此API用户获取交易所每个交易对24小时的价格变动
+
+URL Path: /exchange/markets/query/all
+HTTP Method: GET
+
+HTTP 请求 URL:
+```
+http://pub-api.biger.in/exchange/markets/query/all
+
+```
+
+HTTP 返回说明
+```
+{"result":"Success","code":200,"msg":"Success","data":[{"symbol":"AEUSDT","symbolDisplayName":"AE/USDT","baseCurrencyCode":212,"baseCurrencyName":"AE","quoteCurrencyCode":106,"quoteCurrencyName":"USDT","amountDivisibilityUnit":"0.001","priceDivisibilityUnit":"0.0001","last":"0.3880","rate24h":"-0.0358","open24h":"0.4024","close24h":"0.3880","low24h":"0.3857","high24h":"0.4534","volume24h":"85841.449","rate7d":"-0.0214","low7d":"0.3779","high7d":"0.4534","open7d":"0.3965","close7d":"0.3880","volume7d":"559853.902","maxPriceScale":4,"maxQuantityScale":3,"maxTotalPriceScale":7,"ticker":null},
+    ...
+]}
+```
+
+示例
+```
+Request: http://pub-api.biger.in/exchange/markets/query/all
+Response: 
+{"result":"Success","code":200,"msg":"Success","data":[{"symbol":"AEUSDT","symbolDisplayName":"AE/USDT","baseCurrencyCode":212,"baseCurrencyName":"AE","quoteCurrencyCode":106,"quoteCurrencyName":"USDT","amountDivisibilityUnit":"0.001","priceDivisibilityUnit":"0.0001","last":"0.3880","rate24h":"-0.0358","open24h":"0.4024","close24h":"0.3880","low24h":"0.3857","high24h":"0.4534","volume24h":"85841.449","rate7d":"-0.0214","low7d":"0.3779","high7d":"0.4534","open7d":"0.3965","close7d":"0.3880","volume7d":"559853.902","maxPriceScale":4,"maxQuantityScale":3,"maxTotalPriceScale":7,"ticker":null},
+    ...
+]}
+```
+
+
+### 交易对 K线的历史查询
+
+REST API http://pub-api.biger.in/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
+
+路径：	/md/kline
+方法：	GET
+请求参数
+
+参数 | 属性 | 类型 | 说明  
+------ | ------ | ------ | ------------------------------------------------------
+symbol | 必须 | String | oin pair symbol, eg. BTCUSDT
+period / interval | 必须 | String | K线时间周期，可能的值：1min，5min，15min，30min，60min，1day，1mon，1week，60，300，900，1800，3600，86400，604800, 2592000
+start_time  | 	可选 | Integer | 缺省为取200根K线的开始时间，从1970年1月1日开始计算的UTC时间，以秒为单位. eg. 1543274801
+end_time | 可选 | Integer | 缺省为当前时间，从1970年1月1日开始计算的UTC时间，以秒为单位. eg. 1543274801
+
+
+HTTP  请求 URL 示例说明
+```
+http://pub-api.biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
+
+```
+
+
+HTTP返回说明
+```
+{“error":null,"id":0,"result":[
+    [
+        1492358400, 时间
+        "7000.00",  开盘价
+        "8000.0",   收盘价
+        "8100.00",  最高价
+        "6800.00",  最低价
+        "1000.00"   成交量
+        "123456.00" 成交额
+        "BTCUSDT"   交易品种
+    ]
+    ...
+]}
+```
+
+示例
+```
+请求: http://pub-api.biger.in/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
+返回: 
+{“error":null,"id":0,"result":[
+[1543190400,”4394","3863.05","4394","3701.72","1809.258054","7117136.76413459","BTCUSDT"],
+[1543276800,”3862.7","3875.11","3939.02","3686.59","1597.117575","6097170.88594629","BTCUSDT"],
+[1543363200,”3909.69","4262.39","4389.04","3887.99","1734.877599","7166445.63528313","BTCUSDT"]
+]}
+```
+
+
+### 用户账户和订单接口列表
+用户账户和订单接口属于保护接口，每次接口的调用必须对请求体进行签名。
+
+#### 查询用户账户余额
 路径：/exchange/accounts/list/accounts
 方法: GET
 示例：
@@ -273,116 +416,6 @@ Or in cases of error	{
 * order.cancel.failed.wrong.state – 此订单不可撤销，非NEW和 PARTIALLY_FILLED状态
 * ORDER CANCEL FAILURE PENDING ENGINE – 此订单不在订单簿中，可能已成交
 * The system is busy, please try again later – 系统繁忙，请重试
-
-
-# REST K线历史数据
-
-
-## 数字货币24H价格历史的
-路径：	/web-api-gateway/exchange/coins/query/all
-方法：	GET
-请求参数
-无
-
-### 语法
-HTTP Get
-
-#### HTTP  请求 URL
-```
-https://www.biger.in/web-api-gateway/exchange/coins/query/all
-
-```
-
-#### HTTP返回
-```
-{
-    "result": "Success",
-    "code": 200,
-    "msg": "Success",
-    "data": [
-        {
-            "coinCode": 102,
-            "coinName": "BCH",
-            "fullName": "BCH",
-            "scale": 8,
-            "iconUrl": "/s3-prd-static/images/share/admin/admin20181128175337_9870.png",
-            "status": 1,
-            "coinType": 0
-        },
-    ...
-]}
-```
-
-#### 示例
-```
-请求: https://www.biger.in/web-api-gateway/exchange/coins/query/all
-返回: 
-{
-    "result": "Success",
-    "code": 200,
-    "msg": "Success",
-    "data": [
-        {
-            "coinCode": 102,
-            "coinName": "BCH",
-            "fullName": "BCH",
-            "scale": 8,
-            "iconUrl": "/s3-prd-static/images/share/admin/admin20181128175337_9870.png",
-            "status": 1,
-            "coinType": 0
-        },
-    ...
-]}
-```
-
-
-
-
-## 交易对 K线的REST API https://biger.in/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
-
-### 语法
-
-参数 | 属性 | 类型 | 说明  
------- | ------ | ------ | ------------------------------------------------------
-symbol | 必须 | String | oin pair symbol, eg. BTCUSDT
-period / interval | 必须 | String | K线时间周期，可能的值：1min，5min，15min，30min，60min，1day，1mon，1week，60，300，900，1800，3600，86400，604800, 2592000
-start_time  | 	可选 | Integer | 缺省为取200根K线的开始时间，从1970年1月1日开始计算的UTC时间，以秒为单位. eg. 1543274801
-end_time | 可选 | Integer | 缺省为当前时间，从1970年1月1日开始计算的UTC时间，以秒为单位. eg. 1543274801
-
-#### HTTP  请求 URL
-```
-https://biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
-
-```
-
-#### HTTP返回
-```
-{“error":null,"id":0,"result":[
-    [
-        1492358400, 时间
-        "7000.00",  开盘价
-        "8000.0",   收盘价
-        "8100.00",  最高价
-        "6800.00",  最低价
-        "1000.00"   成交量
-        "123456.00" 成交额
-        "BTCUSDT"   交易品种
-    ]
-    ...
-]}
-```
-
-#### 示例
-```
-请求: https://biger.in/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
-返回: 
-{“error":null,"id":0,"result":[
-[1543190400,”4394","3863.05","4394","3701.72","1809.258054","7117136.76413459","BTCUSDT"],
-[1543276800,”3862.7","3875.11","3939.02","3686.59","1597.117575","6097170.88594629","BTCUSDT"],
-[1543363200,”3909.69","4262.39","4389.04","3887.99","1734.877599","7166445.63528313","BTCUSDT"]
-]}
-```
-
 
 
 # Websocket API
