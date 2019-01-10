@@ -70,19 +70,19 @@ Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&an
 ```
 
 
-# REST API to query Market Data and Digit Currency History Data
+## REST API to query Market Data and Digit Currency History Data
 
 
-## Digit Currency 24 Hours Price History Query API
+### Digit Currency 24 Hours Price History Query API
 This API is used for querying the last 24 hours currency price history:
 
-URL Path: /md/kline
+URL Path: https://www.biger.in/web-api-gateway/exchange/coins/query/all
 HTTP Method: GET
 Authentication Header: No need
 
 #### HTTP Request URL
 ```
-http://pub-api.biger.in/md/kline
+https://www.biger.in/web-api-gateway/exchange/coins/query/all
 
 ```
 
@@ -108,7 +108,7 @@ http://pub-api.biger.in/md/kline
 
 #### Sample
 ```
-Request: http://pub-api.biger.in/md/kline
+Request: https://www.biger.in/web-api-gateway/exchange/coins/query/all
 Response: 
 {
     "result": "Success",
@@ -129,7 +129,7 @@ Response:
 ```
 
 
-## Exchange Market 24 Hours Price History Query API
+### Exchange Market 24 Hours Price History Query API
 This API is used for querying exchange market history.  
 
 URL Path: /exchange/markets/query/all
@@ -169,7 +169,7 @@ Response:
 URL Path: /md/kline
 HTTP Method: GET
 
-##### Syntax
+Request Parameters:
 
 Parameter | Required | Type | Description  
 ------ | ------ | ------ | ------------------------------------------------------
