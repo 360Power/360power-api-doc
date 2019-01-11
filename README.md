@@ -9,8 +9,8 @@ BIGER OPEN API 提供两种API， 1. Rest API 用于操作用户账户和订单�
 * Temporary websocket auth token exchange
 
 # REST API 简介
-BIGER 的REST API URL为 https://pub-api.biger.in , 在使用REST API 操作订单时，需要使用签名认证，以保证通信安全。通过REST API操作以下功能
-* 行情的获取
+BIGER 的REST API URL为 https://pub-api.biger.in (需要绑定IP，行情获取接口也提供不需要绑定IP URL: https://www.biger.in/ ), 在使用REST API 操作订单时，需要使用签名认证，以保证通信安全。通过REST API操作以下功能
+* 行情的获取 
 * 账户操作
 * 交易
 
