@@ -13,7 +13,8 @@ BIGER OPEN API Provides two type APIs,
 * Temporary websocket auth token exchange
 
 # REST API Introduction
-BIGER REST API is at https://pub-api.biger.in.
+BIGER REST API is at https://pub-api.biger.in which requrires IP access. We also provide two public market data API under 	https://www.biger.in which doesn't require IP access.
+
 When you use REST API to execute requests that require authentication, you need to sign your request so that we can authenticate you, as well as ensure that the request was not tempered by a middleman.
 . REST API Provdies following functions:
 * Query markets
@@ -140,8 +141,8 @@ Authentication Header: No
 
 #### HTTP Request URL
 ```
-http://pub-api.biger.in/exchange/markets/query/all
-
+URL Require IP Access: http://pub-api.biger.in/exchange/markets/query/all
+URL without IP Access control: https://www.biger.in/web-api-gateway/exchange/markets/query/all 
 ```
 
 #### HTTP Response
