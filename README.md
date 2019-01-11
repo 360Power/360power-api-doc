@@ -136,8 +136,8 @@ HTTP Method: GET
 
 HTTP 请求 URL:
 ```
-http://pub-api.biger.in/exchange/markets/query/all
-
+URL 需要注册IP   : http://pub-api.biger.in/exchange/markets/query/all
+URL 不需要注册IP : https://www.biger.in/web-api-gateway/exchange/markets/query/all 
 ```
 
 HTTP 返回说明
