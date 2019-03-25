@@ -12,6 +12,9 @@ BIGER OPEN API Provides two type APIs,
 * REST API: query historic K line data
 * Temporary websocket auth token exchange
 
+# OFFICIAL JAVA SDK FOR BIGER EXCHANGE OPEN API
+We do provide an open-source official java sdk at https://github.com/biger-exchange/biger-client, please feel free to check it out.
+
 # REST API Introduction
 BIGER REST API is at https://pub-api.biger.in which requrires IP access. We also provide two public market data API under 	https://www.biger.in which doesn't require IP access.
 
@@ -27,8 +30,9 @@ When you use REST API to execute requests that require authentication, you need 
 To sign your http requests, you need an access token. Please apply for one at http://biger.in. You will need to provide your public key (RSA), the expiry date of requested access Token(else we wil give you 1 year by default) and IP address for whitelisting purposes.
 
 To generate a RSA key pair, you can use a multitude of openly available tools.
- * option 1 - Using openssl via command line - https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/
- * option 2 - a few lines of java code - 
+ * option 1 - Use our java sdk to generate the rsa key pair. See https://github.com/biger-exchange/biger-client and https://github.com/biger-exchange/biger-client-example/blob/master/src/main/java/com/biger/client/examples/GenerateKeyPair.java
+ * option 2 - Using openssl via command line - https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/
+ * option 3 - a few lines of java code - 
 ```
         KeyPairGenerator g = KeyPairGenerator.getInstance("RSA");
         g.initialize(2048);
