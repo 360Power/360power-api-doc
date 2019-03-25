@@ -8,6 +8,9 @@ BIGER OPEN API 提供两种API， 1. Rest API 用于操作用户账户和订单�
 * REST API: 获取历史K线数据
 * Temporary websocket auth token exchange
 
+# 官方 Java SDK
+我们提供 一个open source java sdk 方便用户用java 调用我们提供的 open api. 请看看 https://github.com/biger-exchange/biger-client
+
 # REST API 简介
 BIGER 的REST API URL为 https://pub-api.biger.in (需要绑定IP，行情获取接口也提供不需要绑定IP URL: https://www.biger.in/ ), 在使用REST API 操作订单时，需要使用签名认证，以保证通信安全。通过REST API操作以下功能
 * 行情的获取 
@@ -22,8 +25,9 @@ BIGER 的REST API URL为 https://pub-api.biger.in (需要绑定IP，行情获取
 To apply for access token, you will also first need to generate you rown RSA key pair, and give us your public key. (keep your private key safe on your own end).
 
 To generate a RSA key pair, you can use a multitude of openly available tools.
- * option 1 - Using openssl via command line - https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/
- * option 2 - a few lines of java code - 
+ * option 1 - Use our official java sdk to generate the rsa key pair. See https://github.com/biger-exchange/biger-client-example/blob/master/src/main/java/com/biger/client/examples/GenerateKeyPair.java and https://github.com/biger-exchange/biger-client
+ * option 2 - Using openssl via command line - https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/
+ * option 3 - a few lines of java code - 
 ```
         KeyPairGenerator g = KeyPairGenerator.getInstance("RSA");
         g.initialize(2048);
