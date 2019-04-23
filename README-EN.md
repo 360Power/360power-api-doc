@@ -72,7 +72,11 @@ Then, use RSA and your private key to encrypt the obtained value, and finally en
 BIGER-REQUEST-HASH formula
 ```
 Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&anotherKey=anotherValueGET999999999999999”)))
+RSAEncrypt 要利用 RSA/ECB/PKCS1Padding
 ```
+
+ECB - Electronic Codebook Mode, as defined in FIPS PUB 81, http://csrc.nist.gov/publications/fips/index.html.
+PKCS1Padding - The padding scheme described in PKCS #1, http://www.rsa.com/rsalabs/node.asp?id=2125.
 
 
 ## REST API to query Market Data and Digit Currency History Data
