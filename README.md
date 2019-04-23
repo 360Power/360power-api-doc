@@ -69,7 +69,10 @@ BIGER-REQUEST-HASH 计算公式如下:
 {
 Base64Encode(RSAEncrypt(myPrivateKey, SHA256(utf8ToBytes(“someKey=someValue&anotherKey=anotherValueGET999999999999999”)))
 }
+RSAEncrypt 要利用 RSA/ECB/PKCS1Padding
 ```
+ECB - Electronic Codebook Mode, as defined in FIPS PUB 81, http://csrc.nist.gov/publications/fips/index.html.
+PKCS1Padding - The padding scheme described in PKCS #1, http://www.rsa.com/rsalabs/node.asp?id=2125.
 
 ## REST API列表
 ### 市场信息查询接口列表
