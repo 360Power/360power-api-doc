@@ -16,7 +16,7 @@ BIGER OPEN API Provides two type APIs,
 We do provide an open-source official java sdk at https://github.com/biger-exchange/biger-client, please feel free to check it out.
 
 # REST API Introduction
-BIGER REST API is at https://pub-api.biger.in which requrires IP access. We also provide two public market data API under 	https://www.biger.in which doesn't require IP access.
+BIGER REST API is at https://pub-api.biger.pro which requrires IP access. We also provide two public market data API under 	https://www.biger.pro which doesn't require IP access.
 
 When you use REST API to execute requests that require authentication, you need to sign your request so that we can authenticate you, as well as ensure that the request was not tempered by a middleman.
 . REST API Provdies following functions:
@@ -27,7 +27,7 @@ When you use REST API to execute requests that require authentication, you need 
 
 ## Signing requests
 ### Token Authentication
-To sign your http requests, you need an access token. Please apply for one at http://biger.in. You will need to provide your public key (RSA), the expiry date of requested access Token(else we wil give you 1 year by default) and IP address for whitelisting purposes.
+To sign your http requests, you need an access token. Please apply for one at http://biger.pro. You will need to provide your public key (RSA), the expiry date of requested access Token(else we wil give you 1 year by default) and IP address for whitelisting purposes.
 
 To generate a RSA key pair, you can use a multitude of openly available tools.
  * option 1 - Use our java sdk to generate the rsa key pair. See https://github.com/biger-exchange/biger-client and https://github.com/biger-exchange/biger-client-example/blob/master/src/main/java/com/biger/client/examples/GenerateKeyPair.java
@@ -85,13 +85,13 @@ PKCS1Padding - The padding scheme described in PKCS #1, http://www.rsa.com/rsala
 ### Digit Currency 24 Hours Price History Query API
 This API is used for querying the last 24 hours currency price history:
 
-URL Path: https://www.biger.in/web-api-gateway/exchange/coins/query/all
+URL Path: https://www.biger.pro/web-api-gateway/exchange/coins/query/all
 HTTP Method: GET
 Authentication Header: No need
 
 #### HTTP Request URL
 ```
-https://www.biger.in/web-api-gateway/exchange/coins/query/all
+https://www.biger.pro/web-api-gateway/exchange/coins/query/all
 
 ```
 
@@ -117,7 +117,7 @@ https://www.biger.in/web-api-gateway/exchange/coins/query/all
 
 #### Sample
 ```
-Request: https://www.biger.in/web-api-gateway/exchange/coins/query/all
+Request: https://www.biger.pro/web-api-gateway/exchange/coins/query/all
 Response: 
 {
     "result": "Success",
@@ -149,8 +149,8 @@ Authentication Header: No
 
 #### HTTP Request URL
 ```
-URL Require IP Access: http://pub-api.biger.in/exchange/markets/query/all
-URL without IP Access control: https://www.biger.in/web-api-gateway/exchange/markets/query/all 
+URL Require IP Access: http://pub-api.biger.pro/exchange/markets/query/all
+URL without IP Access control: https://www.biger.pro/web-api-gateway/exchange/markets/query/all 
 ```
 
 #### HTTP Response
@@ -162,7 +162,7 @@ URL without IP Access control: https://www.biger.in/web-api-gateway/exchange/mar
 
 #### Sample
 ```
-Request: http://pub-api.biger.in/exchange/markets/query/all
+Request: http://pub-api.biger.pro/exchange/markets/query/all
 Response: 
 {"result":"Success","code":200,"msg":"Success","data":[{"symbol":"AEUSDT","symbolDisplayName":"AE/USDT","baseCurrencyCode":212,"baseCurrencyName":"AE","quoteCurrencyCode":106,"quoteCurrencyName":"USDT","amountDivisibilityUnit":"0.001","priceDivisibilityUnit":"0.0001","last":"0.3880","rate24h":"-0.0358","open24h":"0.4024","close24h":"0.3880","low24h":"0.3857","high24h":"0.4534","volume24h":"85841.449","rate7d":"-0.0214","low7d":"0.3779","high7d":"0.4534","open7d":"0.3965","close7d":"0.3880","volume7d":"559853.902","maxPriceScale":4,"maxQuantityScale":3,"maxTotalPriceScale":7,"ticker":null},
     ...
@@ -173,7 +173,7 @@ Response:
 
 ### Market Data K-line query  API
 
- REST API http://pub-api.biger.in/md/kline is dedicated to K-line history query. Please use WebSocket API for real-time K-Line subscription/query.
+ REST API http://pub-api.biger.pro/md/kline is dedicated to K-line history query. Please use WebSocket API for real-time K-Line subscription/query.
 
 URL Path: /md/kline
 HTTP Method: GET
@@ -189,7 +189,7 @@ end_time | No | Integer | time in seconds since epoch. eg. 1543274801. The defau
 
 ##### HTTP request URL syntax
 ```
-http://pub-api.biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
+http://pub-api.biger.pro/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
 
 ```
 
@@ -213,7 +213,7 @@ http://pub-api.biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end
 ##### Sample
 ```
 Request: 
-http://pub-api.biger.in/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
+http://pub-api.biger.pro/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
 Response: 
 {“error":null,"id":0,"result":[
   [1543190400,”4394","3863.05","4394","3701.72","1809.258054","7117136.76413459","BTCUSDT"],
@@ -434,11 +434,11 @@ Common Error:
 
 
 # Websocket API
- Websocket API URL为 wss://www.biger.in/ws , market data service is provided via the API。
+ Websocket API URL为 wss://www.biger.pro/ws , market data service is provided via the API。
 
 ##### Temporary token exchange
 Some websocket APIs require you to authenticate using a temporary API token. To retrieve this temporary API token, you need to request
-via a HTTP POST to https://pub-api.biger.in/tokens/exchange
+via a HTTP POST to https://pub-api.biger.pro/tokens/exchange
 with HTTP header BIGER-ACCESS-TOKEN-FOR-EXCHANGE where the value is your access token.
 
 You should get a HTTP 200 response (if not then check your access token or contact us) that looks like the below-
@@ -993,7 +993,7 @@ public class TokenValidityCheck {
         long expiry = now + 5000;
         HttpRequest req = HttpRequest.newBuilder()
                 .GET()
-                .uri(new URI("https://pub-api.biger.in/exchange/orders/current"))
+                .uri(new URI("https://pub-api.biger.pro/exchange/orders/current"))
                 .header("BIGER-ACCESS-TOKEN", "myAccessToken")
                 .header("BIGER-REQUEST-EXPIRY", expiry + "")
                 .header("BIGER-REQUEST-HASH", hash(("GET" + expiry).getBytes(StandardCharsets.UTF_8)))
