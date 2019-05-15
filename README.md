@@ -12,7 +12,7 @@ BIGER OPEN API 提供两种API， 1. Rest API 用于操作用户账户和订单�
 我们提供 一个open source java sdk 方便用户用java 调用我们提供的 open api. 请看看 https://github.com/biger-exchange/biger-client
 
 # REST API 简介
-BIGER 的REST API URL为 https://pub-api.biger.in (需要绑定IP，行情获取接口也提供不需要绑定IP URL: https://www.biger.in/ ), 在使用REST API 操作订单时，需要使用签名认证，以保证通信安全。通过REST API操作以下功能
+BIGER 的REST API URL为 https://pub-api.biger.pro (需要绑定IP，行情获取接口也提供不需要绑定IP URL: https://www.biger.pro/ ), 在使用REST API 操作订单时，需要使用签名认证，以保证通信安全。通过REST API操作以下功能
 * 行情的获取 
 * 账户操作
 * 交易
@@ -79,14 +79,14 @@ PKCS1Padding - The padding scheme described in PKCS #1, http://www.rsa.com/rsala
 市场数据查询接口不需要进行签名和认证
 
 #### 查询数字货币24H价格历史
-路径：	https://www.biger.in/web-api-gateway/exchange/coins/query/all
+路径：	https://www.biger.pro/web-api-gateway/exchange/coins/query/all
 方法：	GET
 请求参数
 无
 
 HTTP  请求 URL: 
 ```
-https://www.biger.in/web-api-gateway/exchange/coins/query/all
+https://www.biger.pro/web-api-gateway/exchange/coins/query/all
 
 ```
 
@@ -112,7 +112,7 @@ HTTP返回
 
 示例
 ```
-请求: https://www.biger.in/web-api-gateway/exchange/coins/query/all
+请求: https://www.biger.pro/web-api-gateway/exchange/coins/query/all
 返回: 
 {
     "result": "Success",
@@ -143,8 +143,8 @@ HTTP Method: GET
 
 HTTP 请求 URL:
 ```
-URL 需要注册IP   : http://pub-api.biger.in/exchange/markets/query/all
-URL 不需要注册IP : https://www.biger.in/web-api-gateway/exchange/markets/query/all 
+URL 需要注册IP   : http://pub-api.biger.pro/exchange/markets/query/all
+URL 不需要注册IP : https://www.biger.pro/web-api-gateway/exchange/markets/query/all 
 ```
 
 HTTP 返回说明
@@ -156,7 +156,7 @@ HTTP 返回说明
 
 示例
 ```
-Request: http://pub-api.biger.in/exchange/markets/query/all
+Request: http://pub-api.biger.pro/exchange/markets/query/all
 Response: 
 {"result":"Success","code":200,"msg":"Success","data":[{"symbol":"AEUSDT","symbolDisplayName":"AE/USDT","baseCurrencyCode":212,"baseCurrencyName":"AE","quoteCurrencyCode":106,"quoteCurrencyName":"USDT","amountDivisibilityUnit":"0.001","priceDivisibilityUnit":"0.0001","last":"0.3880","rate24h":"-0.0358","open24h":"0.4024","close24h":"0.3880","low24h":"0.3857","high24h":"0.4534","volume24h":"85841.449","rate7d":"-0.0214","low7d":"0.3779","high7d":"0.4534","open7d":"0.3965","close7d":"0.3880","volume7d":"559853.902","maxPriceScale":4,"maxQuantityScale":3,"maxTotalPriceScale":7,"ticker":null},
     ...
@@ -166,7 +166,7 @@ Response:
 
 ### 交易对 K线的历史查询
 
-REST API http://pub-api.biger.in/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
+REST API http://pub-api.biger.pro/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
 
 路径：	/md/kline
 方法：	GET
@@ -182,7 +182,7 @@ end_time | 可选 | Integer | 缺省为当前时间，从1970年1月1日开始�
 
 HTTP  请求 URL 示例说明
 ```
-http://pub-api.biger.in/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
+http://pub-api.biger.pro/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
 
 ```
 
@@ -206,7 +206,7 @@ HTTP返回说明
 
 示例
 ```
-请求: http://pub-api.biger.in/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
+请求: http://pub-api.biger.pro/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
 返回: 
 {“error":null,"id":0,"result":[
 [1543190400,”4394","3863.05","4394","3701.72","1809.258054","7117136.76413459","BTCUSDT"],
@@ -426,11 +426,11 @@ Or in cases of error	{
 
 
 # Websocket API
- Websocket API URL为 wss://www.biger.in/ws , 通过websocket API可以获取市场数据。
+ Websocket API URL为 wss://www.biger.pro/ws , 通过websocket API可以获取市场数据。
 
 ## Temporary token exchange
 Some websocket APIs require you to authenticate using a temporary API token. To retrieve this temporary API token, you need to request
-via a HTTP POST to https://pub-api.biger.in/tokens/exchange
+via a HTTP POST to https://pub-api.biger.pro/tokens/exchange
 with HTTP header BIGER-ACCESS-TOKEN-FOR-EXCHANGE where the value is your access token.
 
 You should get a HTTP 200 response (if not then check your access token or contact us) that looks like the below-
@@ -974,7 +974,7 @@ public class TokenValidityCheck {
         long expiry = now + 5000;
         HttpRequest req = HttpRequest.newBuilder()
                 .GET()
-                .uri(new URI("https://pub-api.biger.in/exchange/orders/current"))
+                .uri(new URI("https://pub-api.biger.pro/exchange/orders/current"))
                 .header("BIGER-ACCESS-TOKEN", "myAccessToken")
                 .header("BIGER-REQUEST-EXPIRY", expiry + "")
                 .header("BIGER-REQUEST-HASH", hash(("GET" + expiry).getBytes(StandardCharsets.UTF_8)))
