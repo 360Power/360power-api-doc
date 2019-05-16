@@ -79,14 +79,14 @@ PKCS1Padding - The padding scheme described in PKCS #1, http://www.rsa.com/rsala
 市场数据查询接口不需要进行签名和认证
 
 #### 查询数字货币24H价格历史
-路径：	https://www.biger.pro/web-api-gateway/exchange/coins/query/all
+路径：	https://pub-api.biger.pro/exchange/coins/query/all
 方法：	GET
 请求参数
 无
 
 HTTP  请求 URL: 
 ```
-https://www.biger.pro/web-api-gateway/exchange/coins/query/all
+https://pub-api.biger.pro/exchange/coins/query/all
 
 ```
 
@@ -112,7 +112,7 @@ HTTP返回
 
 示例
 ```
-请求: https://www.biger.pro/web-api-gateway/exchange/coins/query/all
+请求: https://pub-api.biger.pro/exchange/coins/query/all
 返回: 
 {
     "result": "Success",
@@ -144,7 +144,6 @@ HTTP Method: GET
 HTTP 请求 URL:
 ```
 URL 需要注册IP   : http://pub-api.biger.pro/exchange/markets/query/all
-URL 不需要注册IP : https://www.biger.pro/web-api-gateway/exchange/markets/query/all 
 ```
 
 HTTP 返回说明
