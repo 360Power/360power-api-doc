@@ -85,13 +85,13 @@ PKCS1Padding - The padding scheme described in PKCS #1, http://www.rsa.com/rsala
 ### Digit Currency 24 Hours Price History Query API
 This API is used for querying the last 24 hours currency price history:
 
-URL Path: https://www.biger.pro/web-api-gateway/exchange/coins/query/all
+URL Path: https://pub-api.biger.pro/exchange/coins/query/all
 HTTP Method: GET
 Authentication Header: No need
 
 #### HTTP Request URL
 ```
-https://www.biger.pro/web-api-gateway/exchange/coins/query/all
+https://pub-api.biger.pro/exchange/coins/query/all
 
 ```
 
@@ -117,7 +117,7 @@ https://www.biger.pro/web-api-gateway/exchange/coins/query/all
 
 #### Sample
 ```
-Request: https://www.biger.pro/web-api-gateway/exchange/coins/query/all
+Request: https://pub-api.biger.pro/exchange/coins/query/all
 Response: 
 {
     "result": "Success",
@@ -150,7 +150,6 @@ Authentication Header: No
 #### HTTP Request URL
 ```
 URL Require IP Access: http://pub-api.biger.pro/exchange/markets/query/all
-URL without IP Access control: https://www.biger.pro/web-api-gateway/exchange/markets/query/all 
 ```
 
 #### HTTP Response
