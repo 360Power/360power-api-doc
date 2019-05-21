@@ -1014,3 +1014,6 @@ public class TokenValidityCheck {
 }
 ```
 You need to provide the resource 'private.der' which is your pkcs8 private key in DER format as well as replace myAccessToken with your actual access token.
+
+## Appendix D - golang signature generation example
+We do not yet provide a golang client, but have sample code to illustrate how to generate the signature hash using golang. Please see golang signature example
