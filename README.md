@@ -1,3 +1,60 @@
+<!-- TOC -->
+
+- [BIGER 交易所 OPEN API](#biger-交易所-open-api)
+- [官方 Java SDK](#官方-java-sdk)
+- [REST API 简介](#rest-api-简介)
+    - [签名认证](#签名认证)
+        - [安全认证](#安全认证)
+        - [请求头](#请求头)
+        - [签名运算](#签名运算)
+    - [REST API列表](#rest-api列表)
+        - [市场信息查询接口列表](#市场信息查询接口列表)
+            - [查询数字货币24H价格历史](#查询数字货币24h价格历史)
+            - [交易对24小时价格查询](#交易对24小时价格查询)
+        - [交易对 K线的历史查询](#交易对-k线的历史查询)
+        - [用户账户和订单接口列表](#用户账户和订单接口列表)
+            - [查询用户账户余额](#查询用户账户余额)
+            - [查询指定单](#查询指定单)
+            - [查询当前所有单](#查询当前所有单)
+            - [下单](#下单)
+- [Websocket API](#websocket-api)
+    - [Temporary token exchange](#temporary-token-exchange)
+    - [系统接口](#系统接口)
+        - [心跳请求](#心跳请求)
+        - [示例](#示例)
+        - [查询系统时间](#查询系统时间)
+        - [K线接口](#k线接口)
+            - [查询K线](#查询k线)
+            - [订阅K线](#订阅k线)
+            - [取消K线订阅](#取消k线订阅)
+        - [最新报价接口](#最新报价接口)
+            - [查询最新报价](#查询最新报价)
+            - [订阅最新报价](#订阅最新报价)
+            - [取消最新报价订阅](#取消最新报价订阅)
+        - [市场成交数据接口](#市场成交数据接口)
+            - [查询逐笔成交历史](#查询逐笔成交历史)
+            - [逐笔成交数据订阅](#逐笔成交数据订阅)
+            - [取消逐笔成交数据订阅](#取消逐笔成交数据订阅)
+        - [市场深度数据接口](#市场深度数据接口)
+            - [查询最新市场深度](#查询最新市场深度)
+            - [订阅市场深度](#订阅市场深度)
+            - [取消市场深度订阅](#取消市场深度订阅)
+            - [错误处理](#错误处理)
+    - [PUBLIC API申请](#public-api申请)
+        - [1.申请准备](#1申请准备)
+        - [2.发起申请](#2发起申请)
+            - [public key](#public-key)
+            - [account info](#account-info)
+            - [ip list](#ip-list)
+    - [资源的汇总](#资源的汇总)
+    - [FAQ](#faq)
+    - [Appendix A - Symbol list](#appendix-a---symbol-list)
+    - [Appendix B - accepted order quantity and order price scale](#appendix-b---accepted-order-quantity-and-order-price-scale)
+    - [Appendix C - Check validity of access token](#appendix-c---check-validity-of-access-token)
+    - [Appendix D - golang signature generation example](#appendix-d---golang-signature-generation-example)
+
+<!-- /TOC -->
+
 # BIGER 交易所 OPEN API
 
 BIGER OPEN API 提供两种API， 1. Rest API 用于操作用户账户和订单，2, Rest API 用于获取K线数据，3. WebSocket API 用于获取实时行情信息，主要功能如下：
@@ -929,9 +986,9 @@ message | String | 错误信息，具体内容参考下面说明
   
 ### 1.申请准备
   
-1.登陆biger首页（https://www.biger.pro）,注册账户  
-2.生成rsa的公私密钥(密钥不带加密)  
-3.确认接入系统的出口IP，如果有多个，请全部提供  
+* 1.登陆biger首页（https://www.biger.pro）,注册账户  
+* 2.生成rsa的公私密钥(密钥不带加密)  
+* 3.确认接入系统的出口IP，如果有多个，请全部提供  
   
 ### 2.发起申请
   
@@ -961,18 +1018,18 @@ XXXX@gmail.com
 
 ## 资源的汇总
 
-1.密钥在线生成地址：  
+* 1.密钥在线生成地址：  
 http://travistidwell.com/jsencrypt/demo/  
 http://web.chacuo.net/netrsakeypair  
   
-2.PKCS#1和PKCS#8格式的转换  
+* 2.PKCS#1和PKCS#8格式的转换  
 https://blog.csdn.net/john1337/article/details/81778886  
   
-3.RSA可以的加密和解密  
+* 3.RSA可以的加密和解密  
 https://techjourney.net/how-to-decrypt-an-enrypted-ssl-rsa-private-key-pem-key/  
   
 ## FAQ
-1.我应该生成什么格式的签名密钥？  
+* 1.我应该生成什么格式的签名密钥？  
 根据我们提供的签名SDK，建议如下：  
 python和cpp使用pkcs#1的密钥格式，java和C#使用pkcs#8的密钥格式  
   
