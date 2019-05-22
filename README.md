@@ -17,6 +17,7 @@
             - [查询指定单](#查询指定单)
             - [查询当前所有单](#查询当前所有单)
             - [下单](#下单)
+            - [撤单](#撤单)
 - [Websocket API](#websocket-api)
     - [Temporary token exchange](#temporary-token-exchange)
     - [系统接口](#系统接口)
@@ -451,8 +452,8 @@ orderType | 是 |  | 订单类型 | LIMIT
 	}
 }
 ```
+#### 撤单
 
-2.2.2撤单
 路径：		/exchange/orders/cancel/{orderId}
 方法:		PUT
 示例：
