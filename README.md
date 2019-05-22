@@ -923,60 +923,60 @@ message | String | 错误信息，具体内容参考下面说明
 6014 | 请求频率超出限制。若是过度发送请求，系统将返回此错误代码并且延迟回复数据。
 6015 | 订阅数超出请求。若是订阅数量超出超出系统限制，系统将会返回此错误代码并且关掉网络链接。
 
-
-
+  
+  
 ## PUBLIC API申请
-
+  
 ### 1.申请准备
-
-##### 1.登陆biger首页（https://www.biger.pro）,注册账户
-##### 2.生成rsa的公私密钥(密钥不带加密)
-##### 3.确认接入系统的出口IP，如果有多个，请全部提供
-
+  
+1.登陆biger首页（https://www.biger.pro）,注册账户  
+2.生成rsa的公私密钥(密钥不带加密)  
+3.确认接入系统的出口IP，如果有多个，请全部提供  
+  
 ### 2.发起申请
-
-申请格式如下：
-
+  
+申请格式如下：  
+  
 #### public key
-key type: PKCS#1/PKCS#8
-key length: 2048
+key type: PKCS#1/PKCS#8  
+key length: 2048  
 
------BEGIN PUBLIC KEY-----
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
------END PUBLIC KEY-----
+-----BEGIN PUBLIC KEY-----  
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  
+-----END PUBLIC KEY-----  
 
 #### account info
-phone：
-+852 88888888
-email：
-XXXX@gmail.com
+phone：  
++852 88888888  
+email：  
+XXXX@gmail.com  
 #### ip list
-111.111.111.11
-111.111.111.12
-
+111.111.111.11  
+111.111.111.12  
+  
 
 
 ## 资源的汇总
 
-### 密钥在线生成地址：
-http://travistidwell.com/jsencrypt/demo/
-http://web.chacuo.net/netrsakeypair
-
-### PKCS#1和PKCS#8格式的转换
-https://blog.csdn.net/john1337/article/details/81778886
-
-### RSA可以的加密和解密
-https://techjourney.net/how-to-decrypt-an-enrypted-ssl-rsa-private-key-pem-key/
-
+1.密钥在线生成地址：  
+http://travistidwell.com/jsencrypt/demo/  
+http://web.chacuo.net/netrsakeypair  
+  
+2.PKCS#1和PKCS#8格式的转换  
+https://blog.csdn.net/john1337/article/details/81778886  
+  
+3.RSA可以的加密和解密  
+https://techjourney.net/how-to-decrypt-an-enrypted-ssl-rsa-private-key-pem-key/  
+  
 ## FAQ
-### 我应该生成什么格式的签名密钥？
-根据我们提供的签名SDK，建议如下：
-python和cpp使用pkcs#1的密钥格式，java和C#使用pkcs#8的密钥格式
-
-
+1.我应该生成什么格式的签名密钥？  
+根据我们提供的签名SDK，建议如下：  
+python和cpp使用pkcs#1的密钥格式，java和C#使用pkcs#8的密钥格式  
+  
+  
 ## Appendix A - Symbol list
 * LTCUSDT
 * ETHUSDT
