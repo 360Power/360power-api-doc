@@ -40,14 +40,14 @@
             - [订阅市场深度](#订阅市场深度)
             - [取消市场深度订阅](#取消市场深度订阅)
             - [错误处理](#错误处理)
-    - [PUBLIC API申请](#public-api申请)
-        - [1.申请准备](#1申请准备)
-        - [2.发起申请](#2发起申请)
-            - [public key](#public-key)
-            - [account info](#account-info)
-            - [ip list](#ip-list)
-    - [资源的汇总](#资源的汇总)
-    - [FAQ](#faq)
+- [PUBLIC API申请](#public-api申请)
+    - [1.申请准备](#1申请准备)
+    - [2.发起申请](#2发起申请)
+        - [public key](#public-key)
+        - [account info](#account-info)
+        - [ip list](#ip-list)
+- [资源的汇总](#资源的汇总)
+- [FAQ](#faq)
     - [Appendix A - Symbol list](#appendix-a---symbol-list)
     - [Appendix B - accepted order quantity and order price scale](#appendix-b---accepted-order-quantity-and-order-price-scale)
     - [Appendix C - Check validity of access token](#appendix-c---check-validity-of-access-token)
@@ -982,19 +982,19 @@ message | String | 错误信息，具体内容参考下面说明
 
   
   
-## PUBLIC API申请
+# PUBLIC API申请
   
-### 1.申请准备
+## 1.申请准备
   
 * 1.登陆biger首页（https://www.biger.pro）,注册账户  
 * 2.生成rsa的公私密钥(密钥不带加密)  
 * 3.确认接入系统的出口IP，如果有多个，请全部提供  
   
-### 2.发起申请
+## 2.发起申请
   
 申请格式如下：  
   
-#### public key
+### public key
 key type: PKCS#1/PKCS#8  
 key length: 2048  
 
@@ -1005,18 +1005,18 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  
 -----END PUBLIC KEY-----  
 
-#### account info
+### account info
 phone：  
 +852 88888888  
 email：  
 XXXX@gmail.com  
-#### ip list
+### ip list
 111.111.111.11  
 111.111.111.12  
   
 
 
-## 资源的汇总
+# 资源的汇总
 
 * 1.密钥在线生成地址：  
 http://travistidwell.com/jsencrypt/demo/  
@@ -1028,7 +1028,7 @@ https://blog.csdn.net/john1337/article/details/81778886
 * 3.RSA可以的加密和解密  
 https://techjourney.net/how-to-decrypt-an-enrypted-ssl-rsa-private-key-pem-key/  
   
-## FAQ
+# FAQ
 * 1.我应该生成什么格式的签名密钥？  
 根据我们提供的签名SDK，建议如下：  
 python和cpp使用pkcs#1的密钥格式，java和C#使用pkcs#8的密钥格式  
