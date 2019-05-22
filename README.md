@@ -43,15 +43,16 @@
 - [PUBLIC API申请](#public-api申请)
     - [1.申请准备](#1申请准备)
     - [2.发起申请](#2发起申请)
+        - [key info](#key-info)
         - [public key](#public-key)
         - [account info](#account-info)
         - [ip list](#ip-list)
-- [资源的汇总](#资源的汇总)
+- [资源汇总](#资源汇总)
 - [FAQ](#faq)
-    - [Appendix A - Symbol list](#appendix-a---symbol-list)
-    - [Appendix B - accepted order quantity and order price scale](#appendix-b---accepted-order-quantity-and-order-price-scale)
-    - [Appendix C - Check validity of access token](#appendix-c---check-validity-of-access-token)
-    - [Appendix D - golang signature generation example](#appendix-d---golang-signature-generation-example)
+- [Appendix A - Symbol list](#appendix-a---symbol-list)
+- [Appendix B - accepted order quantity and order price scale](#appendix-b---accepted-order-quantity-and-order-price-scale)
+- [Appendix C - Check validity of access token](#appendix-c---check-validity-of-access-token)
+- [Appendix D - golang signature generation example](#appendix-d---golang-signature-generation-example)
 
 <!-- /TOC -->
 
@@ -993,10 +994,12 @@ message | String | 错误信息，具体内容参考下面说明
 ## 2.发起申请
   
 申请格式如下：  
-  
-### public key
+
+### key info
 key type: PKCS#1/PKCS#8  
-key length: 2048  
+key length: 2048 
+
+### public key
 
 -----BEGIN PUBLIC KEY-----  
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  
@@ -1013,10 +1016,10 @@ XXXX@gmail.com
 ### ip list
 111.111.111.11  
 111.111.111.12  
-  
 
 
-# 资源的汇总
+
+# 资源汇总
 
 * 1.密钥在线生成地址：  
 http://travistidwell.com/jsencrypt/demo/  
@@ -1025,7 +1028,7 @@ http://web.chacuo.net/netrsakeypair
 * 2.PKCS#1和PKCS#8格式的转换  
 https://blog.csdn.net/john1337/article/details/81778886  
   
-* 3.RSA可以的加密和解密  
+* 3.RSA密钥的加密和解密  
 https://techjourney.net/how-to-decrypt-an-enrypted-ssl-rsa-private-key-pem-key/  
   
 # FAQ
@@ -1034,7 +1037,7 @@ https://techjourney.net/how-to-decrypt-an-enrypted-ssl-rsa-private-key-pem-key/
 python和cpp使用pkcs#1的密钥格式，java和C#使用pkcs#8的密钥格式  
   
   
-## Appendix A - Symbol list
+# Appendix A - Symbol list
 * LTCUSDT
 * ETHUSDT
 * BTCUSDT
@@ -1046,7 +1049,7 @@ python和cpp使用pkcs#1的密钥格式，java和C#使用pkcs#8的密钥格式
 * BCHBTC
 
 =======
-## Appendix B - accepted order quantity and order price scale
+# Appendix B - accepted order quantity and order price scale
 Note that when creating an order, the order quantity and order price scale(number of decimal points) will be truncated if they were higher than our accepted values.
 For example, eg LTC/USDT orders will have the order price truncated to 2 decimal places while order quantity will be truncated to 5 decimal places.
 
@@ -1062,7 +1065,7 @@ LTCUSDT | 2 | 5
 BCHETH | 8 | 8
 LTCETH | 5 | 3
 
-## Appendix C - Check validity of access token
+# Appendix C - Check validity of access token
 Once given your access token, you can try the sample code below to see if your key pair and tokens are set up correctly.
 ```
 import javax.crypto.Cipher;
@@ -1107,7 +1110,7 @@ public class TokenValidityCheck {
 ```
 You need to provide the resource 'private' which is your private key in DER format as well as replace myAccessToken with your actual access token.
 
-## Appendix D - golang signature generation example
+# Appendix D - golang signature generation example
 
 We do not yet provide a golang client, but have sample code to illustrate how to generate the signature hash using golang.
 Please see [golang signature example](golang-example/main.go)
