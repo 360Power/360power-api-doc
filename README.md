@@ -1036,7 +1036,9 @@ https://techjourney.net/how-to-decrypt-an-enrypted-ssl-rsa-private-key-pem-key/
 * 1.我应该生成什么格式的签名密钥？  
 根据我们提供的签名SDK，建议如下：  
 python和cpp使用pkcs#1的密钥格式，java和C#使用pkcs#8的密钥格式  
-  
+
+* 2.websocket接口中的id如何获取？
+id是异步IO时关联上下文用的，用户可以自己设置，如果是同步IO，可以随便填，为整型
   
 # Appendix A - Symbol list
 * LTCUSDT
