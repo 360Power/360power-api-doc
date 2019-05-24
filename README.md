@@ -102,7 +102,7 @@ To generate a RSA key pair, you can use a multitude of openly available tools.
 `名字` | `值`
 ----------------- | -----------------------------------------
 BIGER-ACCESS-TOKEN | 申请后获取的Access Token
-BIGER-REQUEST-EXPIRY | 此请求的过期时间，Unix epoch millisecond 
+BIGER-REQUEST-EXPIRY | 此请求的过期时间，Unix epoch millisecond，+5s = 5 * 1000 * 1000  
 BIGER-REQUEST-HASH | 由请求参数和私钥计算出来的签名
 
 ### 签名运算
