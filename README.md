@@ -407,7 +407,7 @@ For example, eg LTC/USDT orders will have the order price truncated to 2 decimal
 -------| ----- | ------ | ------------- | -------------
 symbol | 是 |  | 交易对 | 
 side | 是 |  | 买卖 | BUY,  SELL
-Price | 是 |  | 交易价格 | unit price - String
+price | 是 |  | 交易价格 | unit price - String
 orderQty | 是 |  | 交易数量 | String to avoid rounding issues
 orderType | 是 |  | 订单类型 | LIMIT
 
