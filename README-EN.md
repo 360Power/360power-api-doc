@@ -356,7 +356,7 @@ Parameters | Required? | Default | Description | Value
 -------| ----- | ------ | ------------- | -------------
 symbol | Yes |  | Market symbol | 
 side | Yes |  | Buy or Sell | BUY,  SELL
-Price | Yes |  | Pirce | unit price - String
+price | Yes |  | Pirce | unit price - String
 orderQty | Yes |  | Quantity | String to avoid rounding issues
 orderType | Yes |  | Order Type | Currently, only support LIMIT order, will support Market Order
 
