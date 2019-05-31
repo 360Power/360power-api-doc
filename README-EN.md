@@ -27,7 +27,7 @@ When you use REST API to execute requests that require authentication, you need 
 
 ## Signing requests
 ### Token Authentication
-To sign your http requests, you need an access token. Please apply for one at http://biger.pro. You will need to provide your public key (RSA), the expiry date of requested access Token(else we wil give you 1 year by default) and IP address for whitelisting purposes.
+To sign your http requests, you need an access token. Please apply for one at https://biger.pro. You will need to provide your public key (RSA), the expiry date of requested access Token(else we wil give you 1 year by default) and IP address for whitelisting purposes.
 
 To generate a RSA key pair, you can use a multitude of openly available tools.
  * option 1 - Use our java sdk to generate the rsa key pair. See https://github.com/biger-exchange/biger-client and https://github.com/biger-exchange/biger-client-example/blob/master/src/main/java/com/biger/client/examples/GenerateKeyPair.java
@@ -149,7 +149,7 @@ Authentication Header: No
 
 #### HTTP Request URL
 ```
-URL Require IP Access: http://pub-api.biger.pro/exchange/markets/query/all
+URL Require IP Access: https://pub-api.biger.pro/exchange/markets/query/all
 ```
 
 #### HTTP Response
@@ -161,7 +161,7 @@ URL Require IP Access: http://pub-api.biger.pro/exchange/markets/query/all
 
 #### Sample
 ```
-Request: http://pub-api.biger.pro/exchange/markets/query/all
+Request: https://pub-api.biger.pro/exchange/markets/query/all
 Response: 
 {"result":"Success","code":200,"msg":"Success","data":[{"symbol":"AEUSDT","symbolDisplayName":"AE/USDT","baseCurrencyCode":212,"baseCurrencyName":"AE","quoteCurrencyCode":106,"quoteCurrencyName":"USDT","amountDivisibilityUnit":"0.001","priceDivisibilityUnit":"0.0001","last":"0.3880","rate24h":"-0.0358","open24h":"0.4024","close24h":"0.3880","low24h":"0.3857","high24h":"0.4534","volume24h":"85841.449","rate7d":"-0.0214","low7d":"0.3779","high7d":"0.4534","open7d":"0.3965","close7d":"0.3880","volume7d":"559853.902","maxPriceScale":4,"maxQuantityScale":3,"maxTotalPriceScale":7,"ticker":null},
     ...
@@ -172,7 +172,7 @@ Response:
 
 ### Market Data K-line query  API
 
- REST API http://pub-api.biger.pro/md/kline is dedicated to K-line history query. Please use WebSocket API for real-time K-Line subscription/query.
+ REST API https://pub-api.biger.pro/md/kline is dedicated to K-line history query. Please use WebSocket API for real-time K-Line subscription/query.
 
 URL Path: /md/kline
 HTTP Method: GET
@@ -188,7 +188,7 @@ end_time | No | Integer | time in seconds since epoch. eg. 1543274801. The defau
 
 ##### HTTP request URL syntax
 ```
-http://pub-api.biger.pro/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
+https://pub-api.biger.pro/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
 
 ```
 
@@ -212,7 +212,7 @@ http://pub-api.biger.pro/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&en
 ##### Sample
 ```
 Request: 
-http://pub-api.biger.pro/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
+https://pub-api.biger.pro/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
 Response: 
 {“error":null,"id":0,"result":[
   [1543190400,”4394","3863.05","4394","3701.72","1809.258054","7117136.76413459","BTCUSDT"],
