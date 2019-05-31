@@ -202,7 +202,7 @@ HTTP Method: GET
 
 HTTP 请求 URL:
 ```
-URL 需要注册IP   : http://pub-api.biger.pro/exchange/markets/query/all
+URL 需要注册IP   : https://pub-api.biger.pro/exchange/markets/query/all
 ```
 
 HTTP 返回说明
@@ -214,7 +214,7 @@ HTTP 返回说明
 
 示例
 ```
-Request: http://pub-api.biger.pro/exchange/markets/query/all
+Request: https://pub-api.biger.pro/exchange/markets/query/all
 Response: 
 {"result":"Success","code":200,"msg":"Success","data":[{"symbol":"AEUSDT","symbolDisplayName":"AE/USDT","baseCurrencyCode":212,"baseCurrencyName":"AE","quoteCurrencyCode":106,"quoteCurrencyName":"USDT","amountDivisibilityUnit":"0.001","priceDivisibilityUnit":"0.0001","last":"0.3880","rate24h":"-0.0358","open24h":"0.4024","close24h":"0.3880","low24h":"0.3857","high24h":"0.4534","volume24h":"85841.449","rate7d":"-0.0214","low7d":"0.3779","high7d":"0.4534","open7d":"0.3965","close7d":"0.3880","volume7d":"559853.902","maxPriceScale":4,"maxQuantityScale":3,"maxTotalPriceScale":7,"ticker":null},
     ...
@@ -224,7 +224,7 @@ Response:
 
 ### 交易对 K线的历史查询
 
-REST API http://pub-api.biger.pro/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
+REST API https://pub-api.biger.pro/md/kline 只用于提供历史的K线查询，如果需要持续的详细K线数据，请使用 WebSocket API
 
 路径：	/md/kline
 方法：	GET
@@ -240,7 +240,7 @@ end_time | 可选 | Integer | 缺省为当前时间，从1970年1月1日开始�
 
 HTTP  请求 URL 示例说明
 ```
-http://pub-api.biger.pro/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
+https://pub-api.biger.pro/md/kline?id=0&symbol=<symbol>&start_time=<timestamp>&end_time=<timestamp>&period=<period>
 
 ```
 
@@ -264,7 +264,7 @@ HTTP返回说明
 
 示例
 ```
-请求: http://pub-api.biger.pro/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
+请求: https://pub-api.biger.pro/md/kline?id=0&symbol=BTCUSDT&start_time=1543274801&end_time=1543374801&period=1day
 返回: 
 {“error":null,"id":0,"result":[
 [1543190400,”4394","3863.05","4394","3701.72","1809.258054","7117136.76413459","BTCUSDT"],
