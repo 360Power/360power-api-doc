@@ -971,49 +971,8 @@ BCHETH | 8 | 8
 LTCETH | 5 | 3
 
 ## Appendix C - Check validity of access token
-Once given your access token, you can try the sample code below to see if your key pair and tokens are set up correctly.
-```
-import javax.crypto.Cipher;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.security.KeyFactory;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.util.Base64;
-
-public class TokenValidityCheck {
-    public static void main(String[] args) throws Exception {
-        HttpClient c = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).build();
-        long now = System.currentTimeMillis();
-        long expiry = now + 5000;
-        HttpRequest req = HttpRequest.newBuilder()
-                .GET()
-                .uri(new URI("https://pub-api.biger.pro/exchange/orders/current"))
-                .header("BIGER-ACCESS-TOKEN", "myAccessToken")
-                .header("BIGER-REQUEST-EXPIRY", expiry + "")
-                .header("BIGER-REQUEST-HASH", hash(("GET" + expiry).getBytes(StandardCharsets.UTF_8)))
-                .header("Accept", "application/json")
-                .build();
-        c.sendAsync(req, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(System.out::println)
-                .join();
-    }
-
-    private static String hash(byte[] payload) throws Exception {
-        Cipher c = Cipher.getInstance("RSA");
-        c.init(Cipher.ENCRYPT_MODE, KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(ClassLoader.getSystemResourceAsStream("private").readAllBytes())), new SecureRandom());
-
-        return Base64.getEncoder().encodeToString(c.doFinal(MessageDigest.getInstance("SHA-256").digest(payload)));
-    }
-
-}
-```
-You need to provide the resource 'private.der' which is your pkcs8 private key in DER format as well as replace myAccessToken with your actual access token.
+Once given your access token, you can use our open-source testing utility to check the validity and usability of your access token.
+Check it out at [BigerFX](https://github.com/biger-exchange/biger-fx)
 
 ## Appendix D - golang signature generation example
-We do not yet provide a golang client, but have sample code to illustrate how to generate the signature hash using golang. Please see golang signature example
+We do not yet provide a golang client, but have sample code to illustrate how to generate the signature hash using golang. Please see [golang signature example](golang-example/main.go)
