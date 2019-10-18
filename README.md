@@ -1,6 +1,6 @@
 <!-- TOC -->
 
-- [360power OPEN API](#360power 做市API-open-api)
+- [360power OPEN API](#360power API-open-api)
 - [官方 Java SDK](#官方-java-sdk)
 - [REST API 简介](#rest-api-简介)
     - [签名认证](#签名认证)
@@ -93,7 +93,7 @@
 To apply for access token, you will also first need to generate you rown RSA key pair, and give us your public key. (keep your private key safe on your own end).
 
 To generate a RSA key pair, you can use a multitude of openly available tools.
- * option 1 - Use our official java sdk to generate the rsa key pair. See https://github.com/biger-exchange/biger-client-example/blob/master/src/main/java/com/biger/client/examples/GenerateKeyPair.java and https://github.com/biger-exchange/biger-client
+ * option 1 - Use our official java sdk to generate the rsa key pair. See https://github.com/f-exchange/biger-client-example/blob/master/src/main/java/com/biger/client/examples/GenerateKeyPair.java and https://github.com/biger-exchange/biger-client
  * option 2 - Using openssl via command line - https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/
  * option 3 - a few lines of java code - 
 ```
