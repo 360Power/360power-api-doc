@@ -1,6 +1,6 @@
 <!-- TOC -->
 
-- [BIGER 交易所 OPEN API](#biger-交易所-open-api)
+- [360power OPEN API](#360power 做市API-open-api)
 - [官方 Java SDK](#官方-java-sdk)
 - [REST API 简介](#rest-api-简介)
     - [签名认证](#签名认证)
@@ -57,9 +57,9 @@
 
 <!-- /TOC -->
 
-# BIGER 交易所 OPEN API
+# 360power OPEN API
 
-BIGER OPEN API 提供两种API， 1. Rest API 用于操作用户账户和订单，2, Rest API 用于获取K线数据，3. WebSocket API 用于获取实时行情信息，主要功能如下：
+360power OPEN API 提供两种API， 1. Rest API 用于操作用户账户和订单，2, Rest API 用于获取K线数据，3. WebSocket API 用于获取实时行情信息，主要功能如下：
 
 * WebSocket API: 获取市场行情
 * REST API: 查询账户信息, 可用金额和冻结金额
